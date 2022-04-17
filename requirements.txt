@@ -1,0 +1,4 @@
+basyx-python-sdk>=0.2.2
+werkzeug>=2.1.1
+flask>=2.1.1
+PyJWT>=2.3.0
