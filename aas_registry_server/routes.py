@@ -9,6 +9,8 @@ import jwt
 import werkzeug.security
 
 from basyx.aas import model
+from basyx.aas.adapter.json import json_serialization, json_deserialization
+from basyx.aas.backend import local_file
 from aas_registry_server import auth
 
 
@@ -22,6 +24,9 @@ config.read([
 # Read config file
 JWT_EXPIRATION_TIME: int = int(config["AUTHENTICATION"]["TOKEN_EXPIRATION_TIME"])  # JWT Expiration Time in minutes
 PORT: int = int(config["GENERAL"]["PORT"])
+STORAGE_DIR: str = os.path.abspath(config["STORAGE"]["STORAGE_DIR"])
+OBJECT_STORE: local_file.LocalFileObjectStore = local_file.LocalFileObjectStore(STORAGE_DIR)
+# todo: Create storage dir, if not existing
 
 
 @APP.route("/login", methods=["GET", "POST"])
@@ -72,93 +77,56 @@ def test_authorized(current_user: str):
     return flask.json.dumps({"Connection": "ok", "User": current_user}), 200
 
 
-# @APP.route("/query_object", methods=["GET"])
-# @auth.token_required
-# def query(current_user: str):
-#     """
-#     Executes an SQL statement with an MySQL user, that only has `SELECT`, `CREATE VIEW` and `INDEX` and `SHOW VIEW`
-#
-#     Request format:
-#
-#     .. code-block::
-#
-#         {
-#             "OBJ_TYPE": "<object type>",
-#             "attribute": "<attribute name>",
-#             "value": "<attribute value>",
-#             "multi_result": <True/False, Default: True>
-#         }
-#
-#     Return format: If `multi_result`: List of objects in JSON Dicts, else: JSON object Dict:
-#
-#     .. code-block::
-#
-#         [
-#             {
-#                 "OBJ_TYPE": "<object type>",
-#                 <Rest of the object.from_dict() dict>
-#             },
-#             {
-#                 "OBJ_TYPE": "<object type>",
-#                 <Rest of the object.from_dict() dict>
-#             }
-#         ]
-#
-#     :returns:
-#
-#         - 200, with the result of the query as list of objects, as well as the object type in JSON
-#         - 400, if the SQL request is missing items
-#         - 404, if no result is found
-#         - 412, if the request wants only one result, but multiple results are found
-#         - 415, If invalid object type is given
-#     """
-#     data = flask.request.get_json(force=True)
-#     # Check if all needed parameters are given
-#     object_type_string: Optional[str] = data.get("OBJ_TYPE")
-#     if not object_type_string:
-#         return flask.make_response("Missing object type", 400)
-#     attribute_name: Optional[str] = data.get("attribute")
-#     if not attribute_name:
-#         return flask.make_response("Missing attribute name", 400)
-#     query_value: Optional[str] = data.get("value")
-#     if not query_value:
-#         return flask.make_response("Missing attribute value", 400)
-#     multi_result: bool = data.get("multi_result") if data.get("multi_result") is not None else True
-#     # Check if the object type can be fetched by string
-#     object_type: Optional[model.BASE_CLASS_UNION] = model.STRING_TO_OBJECT_TYPE_MAP.get(object_type_string)
-#     if not object_type:
-#         return flask.make_response("Invalid Object type '{}'".format(object_type_string), 415)
-#     # Check if the given attribute is in the object
-#     if not object_type.__dict__.get(attribute_name):
-#         return flask.make_response(
-#             "Invalid attribute '{}' for object of type '{}'".format(attribute_name, object_type_string), 415
-#         )
-#     # Check if the MYSQL-Adapter has been initialized
-#     if not MYSQL_ADAPTER.model_created:
-#         MYSQL_ADAPTER.create_model()
-#     # Query the object from the database
-#     qu = MYSQL_ADAPTER.session.query(object_type).where(object_type.__dict__[attribute_name] == query_value)
-#     if multi_result:
-#         obj_list: List[model.BASE_CLASS_UNION] = qu.all()
-#         obj_dict_list = []
-#         for obj in obj_list:
-#             obj_dict = obj.to_dict()
-#             obj_dict_list.append(obj_dict)
-#         return flask.make_response(json.dumps(obj_dict_list), 200)
-#     else:
-#         try:
-#             obj: model.BASE_CLASS_UNION = qu.one()
-#             obj_dict = obj.to_dict()
-#             return flask.make_response(json.dumps(obj_dict), 200)
-#         except sqlalchemy.orm.exc.NoResultFound:
-#             return flask.make_response(
-#                 "Cannot find '{}' where '{}' is '{}'".format(object_type_string, attribute_name, query_value), 404
-#             )
-#         except sqlalchemy.orm.exc.MultipleResultsFound:
-#             return flask.make_response("More than one result found", 412)
+@APP.route("/get_identifiable", methods=["GET"])
+@auth.token_required
+def query(current_user: str):
+    """
+    Executes an SQL statement with an MySQL user, that only has `SELECT`, `CREATE VIEW` and `INDEX` and `SHOW VIEW`
+
+    Request format is a json serialized :class:`basyx.aas.model.base.Identifier`:
+
+    .. code-block::
+
+        {
+            "id": "<Identifier.id string>",
+            "idType": "<idType string>"
+        }
+
+    Returns a JSON serialized :class:`basyx.aas.model.base.Identifiable`.
+
+    :returns:
+
+        - 200, with the Identifiable
+        - 400, if the request cannot be parsed
+        - 404, if no result is found
+        - 422, if a valid AAS object was given, but not an Identifiable
+     """
+    data = flask.request.get_data(as_text=True)
+    # Load the JSON from the request
+    try:
+        identifier_dict: Dict[str, str] = json.loads(data)
+    except json.decoder.JSONDecodeError:
+        return flask.make_response("Could not parse request, not valid JSON", 400)
+    # Check that the request JSON contained in fact an Identifier
+    try:
+        identifier: model.Identifier = model.Identifier(
+            id_=identifier_dict["id"],
+            id_type=json_deserialization.IDENTIFIER_TYPES_INVERSE[identifier_dict["idType"]]
+        )
+    except KeyError:
+        return flask.make_response("Request does not contain an Identifier", 422)
+    # Try to resolve the Identifier in the object store
+    identifiable: Optional[model.Identifiable] = OBJECT_STORE.get(identifier)
+    # Todo: Check here if the given user has access rights to the Identifiable
+    if identifiable is None:
+        return flask.make_response("Could not find Identifiable with id {} in repository".format(identifier.id), 404)
+    return flask.make_response(
+        json.dumps(identifiable, cls=json_serialization.AASToJsonEncoder, indent=4),
+        200
+    )
 
 
 if __name__ == '__main__':
-    print("Running with configuration: {}".format({s:dict(config.items(s)) for s in config.sections()}))
+    print("Running with configuration: {}".format({s: dict(config.items(s)) for s in config.sections()}))
     print("Found {} Users".format(len(auth.USERS)))
     APP.run(port=PORT)

@@ -5,4 +5,5 @@ PORT = 2234
 USER_FILE = users.dat
 TOKEN_EXPIRATION_TIME = 20
 
-
+[STORAGE]
+STORAGE_DIR = ./store
