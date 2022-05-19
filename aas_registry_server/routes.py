@@ -2,7 +2,7 @@ import datetime
 import os
 import configparser
 import json
-from typing import Optional, List, Dict
+from typing import Optional, Set, Dict
 
 import flask
 import jwt
@@ -10,8 +10,7 @@ import werkzeug.security
 
 from basyx.aas import model
 from basyx.aas.adapter.json import json_serialization, json_deserialization
-from basyx.aas.backend import local_file
-from aas_registry_server import auth
+from aas_registry_server import auth, storage
 
 
 APP = flask.Flask(__name__)
@@ -25,7 +24,7 @@ config.read([
 JWT_EXPIRATION_TIME: int = int(config["AUTHENTICATION"]["TOKEN_EXPIRATION_TIME"])  # JWT Expiration Time in minutes
 PORT: int = int(config["GENERAL"]["PORT"])
 STORAGE_DIR: str = os.path.abspath(config["STORAGE"]["STORAGE_DIR"])
-OBJECT_STORE: local_file.LocalFileObjectStore = local_file.LocalFileObjectStore(STORAGE_DIR)
+OBJECT_STORE: storage.RegistryObjectStore = storage.RegistryObjectStore(STORAGE_DIR)
 # todo: Create storage dir, if not existing
 
 
@@ -79,7 +78,7 @@ def test_authorized(current_user: str):
 
 @APP.route("/get_identifiable", methods=["GET"])
 @auth.token_required
-def query(current_user: str):
+def get_identifiable(current_user: str):
     """
     Executes an SQL statement with an MySQL user, that only has `SELECT`, `CREATE VIEW` and `INDEX` and `SHOW VIEW`
 
@@ -122,6 +121,58 @@ def query(current_user: str):
         return flask.make_response("Could not find Identifiable with id {} in repository".format(identifier.id), 404)
     return flask.make_response(
         json.dumps(identifiable, cls=json_serialization.AASToJsonEncoder, indent=4),
+        200
+    )
+
+
+@APP.route("/query_semantic_id", methods=["GET"])
+@auth.token_required
+def query_semantic_id(current_user: str):
+    """
+    Query all Identifiable objects that either have a semanticID or contain a child having that semanticID.
+
+    Request format is a json serialized :class:`basyx.aas.model.base.Key` (from a Reference):
+
+    .. code-block::
+
+        {
+            'type': 'GlobalReference',
+            'idType': 'IRI',
+            'value': 'https://example.com/semanticIDs/ONE',
+            'local': False
+        }
+
+    Returns a list of identifiers (in no particular order) that contain that semanticID
+
+    :returns:
+
+        - 200, with the List of Identifiers
+        - 400, if the request cannot be parsed
+        - 422, if a valid AAS object was given, but not an Identifiable
+    """
+    data = flask.request.get_data(as_text=True)
+    # Load the JSON from the request
+    try:
+        key_dict: Dict[str, str] = json.loads(data)
+    except json.decoder.JSONDecodeError:
+        return flask.make_response("Could not parse request, not valid JSON", 400)
+    # Check that the request JSON contained in fact an Identifier
+    try:
+        semantic_id_key: model.Key = model.Key(
+            type_=json_deserialization.KEY_ELEMENTS_INVERSE[key_dict["type"]],
+            local=True if key_dict["local"] else False,
+            value=key_dict["value"],
+            id_type=json_deserialization.KEY_TYPES_INVERSE[key_dict["idType"]]
+        )
+    except KeyError:
+        return flask.make_response("Request does not contain a Key", 422)
+    # Get the list of identifiables that contain the semanticID
+    identifiers: Optional[Set[model.Identifier]] = OBJECT_STORE.semantic_id_index.get(semantic_id_key)
+    # Todo: Check here if the given user has access rights to the Identifiable
+    if identifiers is None:
+        identifiables = set([])  # Set the identifiables to an empty set
+    return flask.make_response(
+        json.dumps(list(identifiers), cls=json_serialization.AASToJsonEncoder, indent=4),
         200
     )
 
