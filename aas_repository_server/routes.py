@@ -10,7 +10,7 @@ import werkzeug.security
 
 from basyx.aas import model
 from basyx.aas.adapter.json import json_serialization, json_deserialization
-from aas_registry_server import auth, storage
+from aas_repository_server import auth, storage
 
 
 APP = flask.Flask(__name__)

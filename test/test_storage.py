@@ -2,7 +2,7 @@ import unittest
 from typing import Set, Dict
 
 from basyx.aas import model
-from aas_registry_server import routes
+from aas_repository_server import routes
 
 
 class RegistryObjectStoreTest(unittest.TestCase):

@@ -1,7 +1,7 @@
 import unittest
 
 
-from aas_registry_server import auth
+from aas_repository_server import auth
 
 
 class UserTest(unittest.TestCase):
