@@ -213,9 +213,10 @@ class QuerySemanticIDTest(unittest.TestCase):
         self.auth_headers = {"x-access-tokens": "{}".format(self.token)}
 
     def tearDown(self) -> None:
-        routes.OBJECT_STORE.clear()
-        routes.OBJECT_STORE.semantic_id_index = {}
-        auth.remove_user("test")  # Remove the test user from the User DB
+        # routes.OBJECT_STORE.clear()
+        # routes.OBJECT_STORE.semantic_id_index = {}
+        # auth.remove_user("test")  # Remove the test user from the User DB
+        pass
 
     def test_query_semantic_id_success(self):
         semantic_id_key: model.Key = model.Key(

@@ -1,6 +1,6 @@
-# AAS Registry Server
+# AAS Repository Server
 
-An Implementation of an AssetAdministrationShell Registry server, 
+An Implementation of an AssetAdministrationShell Repository server, 
 using the [Eclipse BaSyx Python SDK](https://github.com/eclipse-basyx/basyx-python-sdk).
 
 ## How to Use (Further features follow):
