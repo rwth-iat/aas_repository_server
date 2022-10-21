@@ -76,12 +76,22 @@ def test_authorized(current_user: str):
     return flask.json.dumps({"Connection": "ok", "User": current_user}), 200
 
 
+@APP.route("/add_identifiable", methods=["POST"])
+@auth.token_required
+def add_identifiable(current_user: str):
+    pass
+
+
+@APP.route("/modify_identifiable", methods=["PUT"])
+@auth.token_required
+def modify_identifiable(current_user: str):
+    pass
+
+
 @APP.route("/get_identifiable", methods=["GET"])
 @auth.token_required
 def get_identifiable(current_user: str):
     """
-    Executes an SQL statement with an MySQL user, that only has `SELECT`, `CREATE VIEW` and `INDEX` and `SHOW VIEW`
-
     Request format is a json serialized :class:`basyx.aas.model.base.Identifier`:
 
     .. code-block::
