@@ -16,6 +16,7 @@ class RegistryObjectStore(local_file.LocalFileObjectStore):
     def __init__(self, storage_directory: str):
         super().__init__(storage_directory)
         self.semantic_id_index: Dict[model.Key, Set[model.Identifier]] = {}
+        # Todo: Check only for model.Key.value and id_type. The other two attributes are not well enough defined
         self._index_semantic_ids()
 
     def _add_semantic_id_to_index(self, semantic_id: model.Key, identifier: model.Identifier):
