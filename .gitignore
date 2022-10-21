@@ -9,3 +9,4 @@
 /.coverage
 /htmlcov/
 /docs/build/
+users.dat
