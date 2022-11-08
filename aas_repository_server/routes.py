@@ -79,13 +79,52 @@ def test_authorized(current_user: str):
 @APP.route("/add_identifiable", methods=["POST"])
 @auth.token_required
 def add_identifiable(current_user: str):
-    pass
+    """
+            Request format is a json serialized :class:`basyx.aas.model.base.Identifiable`:
 
+            :returns:
+
+                - 200
+                - 400, if the request cannot be parsed
+                - 409, if the Identifiable already exists in the OBJECT_STORE
+             """
+    data = flask.request.get_data(as_text=True)
+    try:
+        identifiable: Optional[model.Identifiable] = json.loads(data, cls=json_deserialization.AASFromJsonDecoder)
+    except json.decoder.JSONDecodeError:
+        return flask.make_response("Could not parse request, not valid JSON", 400)
+    # Todo: Check here if the given user has access rights to the Identifiable
+    try:
+        OBJECT_STORE.add(identifiable)
+    except KeyError:
+        return flask.make_response("Identifiable already exists in OBJECT_STORE", 200)
+    return flask.make_response("OK", 200)
 
 @APP.route("/modify_identifiable", methods=["PUT"])
 @auth.token_required
 def modify_identifiable(current_user: str):
-    pass
+    """
+        Request format is a json serialized :class:`basyx.aas.model.base.Identifiable`:
+
+        :returns:
+
+            - 200
+            - 400, if the request cannot be parsed
+            - 404, if no result is found
+         """
+    data = flask.request.get_data(as_text=True)
+    try:
+        identifiable_new: Optional[model.Identifiable] = json.loads(data, cls=json_deserialization.AASFromJsonDecoder)
+    except json.decoder.JSONDecodeError:
+        return flask.make_response("Could not parse request, not valid JSON", 400)
+    identifier: Optional[model.Identifier] = identifiable_new.identification
+    identifiable_stored: Optional[model.Identifiable] = OBJECT_STORE.get(identifier)
+    # Todo: Check here if the given user has access rights to the Identifiable
+    if identifiable_stored is None:
+        return flask.make_response("Could not find Identifiable with id {} in repository".format(identifier.id), 404)
+    OBJECT_STORE.discard(identifiable_stored)
+    OBJECT_STORE.add(identifiable_new)
+    return flask.make_response("OK", 200)
 
 
 @APP.route("/get_identifiable", methods=["GET"])
