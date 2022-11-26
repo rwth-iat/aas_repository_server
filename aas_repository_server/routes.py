@@ -10,9 +10,12 @@ import werkzeug.security
 
 from basyx.aas import model
 from basyx.aas.adapter.json import json_serialization, json_deserialization
-from aas_repository_server import auth, storage
+#from aas_repository_server import auth, storage
+import auth, storage
+from flask import stream_with_context, Response
+import zipfile
 
-
+# todo: Config anpassen, parsing anpassen , storage anpassen
 APP = flask.Flask(__name__)
 config = configparser.ConfigParser()
 config.read([
@@ -23,9 +26,13 @@ config.read([
 # Read config file
 JWT_EXPIRATION_TIME: int = int(config["AUTHENTICATION"]["TOKEN_EXPIRATION_TIME"])  # JWT Expiration Time in minutes
 PORT: int = int(config["GENERAL"]["PORT"])
-STORAGE_DIR: str = os.path.abspath(config["STORAGE"]["STORAGE_DIR"])
-OBJECT_STORE: storage.RegistryObjectStore = storage.RegistryObjectStore(STORAGE_DIR)
+#anpassen (Name)
+AAS_STORAGE_DIR: str = os.path.abspath(config["STORAGE"]["AAS_STORAGE_DIR"])
+#OBJECT Store mit AAS_ initialisieren
+OBJECT_STORE: storage.RegistryObjectStore = storage.RegistryObjectStore(AAS_STORAGE_DIR)
 # todo: Create storage dir, if not existing
+# todo: Add Second FMU storage (Datei liegt im Ordner und rausholen(wie Datei laden), get_fmu())
+
 
 
 @APP.route("/login", methods=["GET", "POST"])
@@ -173,6 +180,72 @@ def get_identifiable(current_user: str):
         200
     )
 
+@APP.route("/get_fmu", methods=["GET"])
+@auth.token_required
+def get_fmu(current_user: str):
+    data = flask.request.get_data(as_text=True)
+    #load fmu from store
+    FMU_STORAGE_DIR: str = os.path.abspath(config["STORAGE"]["FMU_STORAGE_DIR"])
+    data_cleaned = data.replace('"''', "")
+    file_name = data_cleaned+".txt"
+    file_path = FMU_STORAGE_DIR+"\\"+data_cleaned+".zip"
+    #print(file_path)
+
+    with zipfile.ZipFile(file_path) as myzip:
+        with myzip.open(file_name) as myfile:
+            print(myfile.read())
+
+    #send fmu to client
+
+    return data
+
+
+@APP.route("/get_String", methods=["GET"])
+@auth.token_required
+def get_String(current_user: str):
+    data = flask.request.get_data(as_text=True)
+    """
+    /*data = flask.request.get_data(as_text=True)
+    print(data)
+    """
+    #send_file_from_directory!!!
+
+    """
+
+    def generate():
+        #Iterate through all rows
+        var keys = Object.keys(obj)
+        for row in iter_all_rows():
+            yield f"{','.join(row)}\n"
+
+    return app.response_class(generate(), mimetype='text/csv')
+
+    return flask.send_file("../aas_repository_server/test_store/test_file.json")
+ 
+    filename = 'file.csv'
+
+    with open(filename, 'r') as csvfile:
+        datareader = csv.reader(csvfile)
+
+        def generate():
+            for row in datareader:
+                yield str(row)
+
+
+            #yield f"{','.join(row)}\n"
+    #return Response(stream_with_context(generate()), mimetype="text/plain")
+    return generate(), {"Content-Type": "text/csv"}
+
+"""
+
+
+
+    def generate():
+        # create and return your data in small parts here
+        for i in range(10000):
+            yield str(i)
+
+    return Response(stream_with_context(generate()))
 
 @APP.route("/query_semantic_id", methods=["GET"])
 @auth.token_required
