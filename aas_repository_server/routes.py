@@ -80,14 +80,16 @@ def test_authorized(current_user: str):
 @auth.token_required
 def add_identifiable(current_user: str):
     """
-            Request format is a json serialized :class:`basyx.aas.model.base.Identifiable`:
+        Request format is a json serialized :class:`basyx.aas.model.base.Identifiable`:
 
-            :returns:
+        Add an identifiable to the repository.
 
-                - 200
-                - 400, if the request cannot be parsed
-                - 409, if the Identifiable already exists in the OBJECT_STORE
-             """
+        :returns:
+
+            - 200
+            - 400, if the request cannot be parsed
+            - 409, if the Identifiable already exists in the OBJECT_STORE
+    """
     data = flask.request.get_data(as_text=True)
     try:
         identifiable: Optional[model.Identifiable] = json.loads(data, cls=json_deserialization.AASFromJsonDecoder)
@@ -106,12 +108,14 @@ def modify_identifiable(current_user: str):
     """
         Request format is a json serialized :class:`basyx.aas.model.base.Identifiable`:
 
+        Modify an existing Identifiable by overwriting it with the given one.
+
         :returns:
 
             - 200
             - 400, if the request cannot be parsed
             - 404, if no result is found
-         """
+    """
     data = flask.request.get_data(as_text=True)
     try:
         identifiable_new: Optional[model.Identifiable] = json.loads(data, cls=json_deserialization.AASFromJsonDecoder)
@@ -122,10 +126,8 @@ def modify_identifiable(current_user: str):
     # Todo: Check here if the given user has access rights to the Identifiable
     if identifiable_stored is None:
         return flask.make_response("Could not find Identifiable with id {} in repository".format(identifier.id), 404)
-    OBJECT_STORE.discard(identifiable_stored)
-    OBJECT_STORE.add(identifiable_new)
+    identifiable_stored.update_from(identifiable_new)
     return flask.make_response("OK", 200)
-
 
 @APP.route("/get_identifiable", methods=["GET"])
 @auth.token_required
