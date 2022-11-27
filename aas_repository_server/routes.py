@@ -186,23 +186,14 @@ def get_identifiable(current_user: str):
 @auth.token_required
 def get_fmu(current_user: str):
     data = flask.request.get_data(as_text=True)
-    #load fmu from store
-    FMU_STORAGE_DIR: str = os.path.abspath(config["STORAGE"]["FMU_STORAGE_DIR"])
-    data_cleaned = data.replace('"''', "")
-    file_name = data_cleaned+".txt"
-    file_path = FMU_STORAGE_DIR+"\\"+data_cleaned+".zip"
-    #print(file_path)
+    fmu_storage_dir: str = os.path.abspath(config["STORAGE"]["FMU_STORAGE_DIR"])
+    data_cleaned: str = data.replace('"''', "")
+    file_path: str = fmu_storage_dir+"\\"+data_cleaned+".fmu"
     def generate():
-        with zipfile.ZipFile(file_path) as myzip:
-            with myzip.open(file_name) as myfile:
-                for line in myfile:
-                    yield line
+        with open(file_path, mode='rb', buffering=4096) as myzip:
+            for chunk in myzip:
+                yield chunk
     return Response(stream_with_context(generate()))
-
-
-    #send fmu to client
-
-    return data
 
 
 @APP.route("/get_String", methods=["GET"])
