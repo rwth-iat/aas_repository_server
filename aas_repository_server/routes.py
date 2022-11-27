@@ -190,10 +190,13 @@ def get_fmu(current_user: str):
     file_name = data_cleaned+".txt"
     file_path = FMU_STORAGE_DIR+"\\"+data_cleaned+".zip"
     #print(file_path)
+    def generate():
+        with zipfile.ZipFile(file_path) as myzip:
+            with myzip.open(file_name) as myfile:
+                for line in myfile:
+                    yield line
+    return Response(stream_with_context(generate()))
 
-    with zipfile.ZipFile(file_path) as myzip:
-        with myzip.open(file_name) as myfile:
-            print(myfile.read())
 
     #send fmu to client
 
