@@ -186,62 +186,30 @@ def get_identifiable(current_user: str):
 @auth.token_required
 def get_fmu(current_user: str):
     data = flask.request.get_data(as_text=True)
+    try:
+        identifier_dict: Dict[str, str] = json.loads(data)
+    except json.decoder.JSONDecodeError:
+        return flask.make_response("Could not parse request, not valid JSON", 400)
+    # Check that the request JSON contained in fact an Identifier
+    try:
+        identifier: model.Identifier = model.Identifier(
+            id_=identifier_dict["id"],
+            id_type=json_deserialization.IDENTIFIER_TYPES_INVERSE[identifier_dict["idType"]]
+        )
+    except KeyError:
+        return flask.make_response("Request does not contain an Identifier", 422)
+    file_path: str = identifier_dict["id"]
+    print(file_path)
     fmu_storage_dir: str = os.path.abspath(config["STORAGE"]["FMU_STORAGE_DIR"])
-    data_cleaned: str = data.replace('"''', "")
-    file_path: str = fmu_storage_dir+"\\"+data_cleaned+".fmu"
+    file_path = file_path.removeprefix('file:/')
+    file_path: str = fmu_storage_dir+"\\"+file_path
+    #What to do if file does not exist?
     def generate():
         with open(file_path, mode='rb', buffering=4096) as myzip:
             for chunk in myzip:
                 yield chunk
     return Response(stream_with_context(generate()))
 
-
-@APP.route("/get_String", methods=["GET"])
-@auth.token_required
-def get_String(current_user: str):
-    data = flask.request.get_data(as_text=True)
-    """
-    /*data = flask.request.get_data(as_text=True)
-    print(data)
-    """
-    #send_file_from_directory!!!
-
-    """
-
-    def generate():
-        #Iterate through all rows
-        var keys = Object.keys(obj)
-        for row in iter_all_rows():
-            yield f"{','.join(row)}\n"
-
-    return app.response_class(generate(), mimetype='text/csv')
-
-    return flask.send_file("../aas_repository_server/test_store/test_file.json")
- 
-    filename = 'file.csv'
-
-    with open(filename, 'r') as csvfile:
-        datareader = csv.reader(csvfile)
-
-        def generate():
-            for row in datareader:
-                yield str(row)
-
-
-            #yield f"{','.join(row)}\n"
-    #return Response(stream_with_context(generate()), mimetype="text/plain")
-    return generate(), {"Content-Type": "text/csv"}
-
-"""
-
-
-
-    def generate():
-        # create and return your data in small parts here
-        for i in range(10000):
-            yield str(i)
-
-    return Response(stream_with_context(generate()))
 
 @APP.route("/query_semantic_id", methods=["GET"])
 @auth.token_required
