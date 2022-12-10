@@ -186,42 +186,22 @@ def get_identifiable(current_user: str):
 @auth.token_required
 def get_fmu(current_user: str):
     """
-        Request format is a json serialized :class:`basyx.aas.model.base.Identifier`:
-
-        .. code-block::
-
-            {
-                "id": "<Identifier.id string>",
-                "idType": "<idType string>"
-            }
+        Request format is a String IRI
 
         Returns a compressed FMU-File.
 
         :returns:
 
             - 200, with the FMU-File
-            - 400, if the request cannot be parsed
             - 404, if no result is found
-            - 422, if a valid AAS object was given, but not an Identifiable
          """
-    data = flask.request.get_data(as_text=True)
-    try:
-        identifier_dict: Dict[str, str] = json.loads(data)
-    except json.decoder.JSONDecodeError:
-        return flask.make_response("Could not parse request, not valid JSON", 400)
-    try:
-        identifier: model.Identifier = model.Identifier(
-            id_=identifier_dict["id"],
-            id_type=json_deserialization.IDENTIFIER_TYPES_INVERSE[identifier_dict["idType"]]
-        )
-    except KeyError:
-        return flask.make_response("Request does not contain an Identifier", 422)
-    identifier: str = identifier_dict["id"]
+    fmu_IRI = flask.request.get_data(as_text=True)
     fmu_storage_dir: str = os.path.abspath(config["STORAGE"]["FMU_STORAGE_DIR"])
-    file_path_identifier = identifier.removeprefix('file:/')
-    file_path: str = fmu_storage_dir+"\\"+file_path_identifier
+    fmu_IRI = fmu_IRI.strip('"')
+    file_path_IRI = fmu_IRI.removeprefix('file:/')
+    file_path: str = fmu_storage_dir+"\\"+file_path_IRI
     if not os.path.isfile(file_path):
-        return flask.make_response("Could not fetch FMU-File with Identifier {}".format(identifier), 404)
+        return flask.make_response("Could not fetch FMU-File with IRI {}".format(fmu_IRI), 404)
     def generate():
         with open(file_path, mode='rb', buffering=4096) as myzip:
             for chunk in myzip:
