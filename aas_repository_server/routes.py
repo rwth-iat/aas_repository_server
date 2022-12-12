@@ -87,15 +87,15 @@ def test_authorized(current_user: str):
 @auth.token_required
 def add_identifiable(current_user: str):
     """
-        Request format is a json serialized :class:`basyx.aas.model.base.Identifiable`:
+    Request format is a json serialized :class:`basyx.aas.model.base.Identifiable`:
 
-        Add an identifiable to the repository.
+    Add an identifiable to the repository.
 
-        :returns:
+    :returns:
 
-            - 200
-            - 400, if the request cannot be parsed
-            - 409, if the Identifiable already exists in the OBJECT_STORE
+        - 200
+        - 400, if the request cannot be parsed
+        - 409, if the Identifiable already exists in the OBJECT_STORE
     """
     data = flask.request.get_data(as_text=True)
     try:
@@ -113,15 +113,15 @@ def add_identifiable(current_user: str):
 @auth.token_required
 def modify_identifiable(current_user: str):
     """
-        Request format is a json serialized :class:`basyx.aas.model.base.Identifiable`:
+    Request format is a json serialized :class:`basyx.aas.model.base.Identifiable`:
 
-        Modify an existing Identifiable by overwriting it with the given one.
+    Modify an existing Identifiable by overwriting it with the given one.
 
-        :returns:
+    :returns:
 
-            - 200
-            - 400, if the request cannot be parsed
-            - 404, if no result is found
+        - 200
+        - 400, if the request cannot be parsed
+        - 404, if no result is found
     """
     data = flask.request.get_data(as_text=True)
     try:
@@ -157,7 +157,7 @@ def get_identifiable(current_user: str):
         - 400, if the request cannot be parsed
         - 404, if no result is found
         - 422, if a valid AAS object was given, but not an Identifiable
-     """
+    """
     data = flask.request.get_data(as_text=True)
     # Load the JSON from the request
     try:
@@ -186,15 +186,15 @@ def get_identifiable(current_user: str):
 @auth.token_required
 def get_fmu(current_user: str):
     """
-        Request format is a String IRI
+    Request format is a String IRI
 
-        Returns a compressed FMU-File.
+    Returns a compressed FMU-File.
 
-        :returns:
+    :returns:
 
-            - 200, with the FMU-File
-            - 404, if no result is found
-         """
+        - 200, with the FMU-File
+        - 404, if no result is found
+    """
     fmu_IRI = flask.request.get_data(as_text=True)
     fmu_storage_dir: str = os.path.abspath(config["STORAGE"]["FMU_STORAGE_DIR"])
     fmu_IRI = fmu_IRI.strip('"')
@@ -207,6 +207,31 @@ def get_fmu(current_user: str):
             for chunk in myzip:
                 yield chunk
     return Response(stream_with_context(generate()))
+
+@APP.route("/add_fmu", methods=["POST"])
+@auth.token_required
+def add_fmu(current_user: str):
+    """
+    Request format is a streamed FMU-File:
+
+    Add an FMU-File to the repository.
+
+    :returns:
+
+        - 200
+        - 404, if the PAth of the IRI does not exist
+    """
+    #Check that only fmu is added(?)
+    data = flask.request.get_data(cache=False)
+    fmu_IRI = flask.request.headers.get("IRI")
+    fmu_storage_dir: str = os.path.abspath(config["STORAGE"]["FMU_STORAGE_DIR"])
+    path_with_fmu = fmu_storage_dir+(fmu_IRI.removeprefix("file:"))
+    path_without_fmu = '/'.join(path_with_fmu.split('/')[:-1])
+    if not os.path.isdir(path_without_fmu):
+        return flask.make_response("Path of IRI: {} does not exist".format(fmu_IRI), 404)
+    with open(path_with_fmu, 'wb+', buffering=4096) as myzip:
+        myzip.write(data)
+    return flask.make_response("FMU with IRI: {} was added to the Server".format(fmu_IRI), 200)
 
 @APP.route("/query_semantic_id", methods=["GET"])
 @auth.token_required
