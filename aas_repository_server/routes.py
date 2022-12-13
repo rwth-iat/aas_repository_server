@@ -221,7 +221,6 @@ def add_fmu(current_user: str):
         - 200
         - 404, if the PAth of the IRI does not exist
     """
-    #Check that only fmu is added(?)
     data = flask.request.get_data(cache=False)
     fmu_IRI = flask.request.headers.get("IRI")
     fmu_storage_dir: str = os.path.abspath(config["STORAGE"]["FMU_STORAGE_DIR"])
@@ -229,7 +228,8 @@ def add_fmu(current_user: str):
     path_without_fmu = '/'.join(path_with_fmu.split('/')[:-1])
     if not os.path.isdir(path_without_fmu):
         return flask.make_response("Path of IRI: {} does not exist".format(fmu_IRI), 404)
-    with open(path_with_fmu, 'wb+', buffering=4096) as myzip:
+    #!wird FMU ueberschrieben!?
+    with open(path_with_fmu, 'wb', buffering=4096) as myzip:
         myzip.write(data)
     return flask.make_response("FMU with IRI: {} was added to the Server".format(fmu_IRI), 200)
 
