@@ -13,7 +13,6 @@ from basyx.aas.adapter.json import json_serialization, json_deserialization
 #from aas_repository_server import auth, storage
 import auth, storage
 from flask import stream_with_context, Response
-import zipfile
 
 # todo: Config anpassen, parsing anpassen , storage anpassen
 APP = flask.Flask(__name__)
@@ -32,7 +31,6 @@ AAS_STORAGE_DIR: str = os.path.abspath(config["STORAGE"]["AAS_STORAGE_DIR"])
 OBJECT_STORE: storage.RegistryObjectStore = storage.RegistryObjectStore(AAS_STORAGE_DIR)
 # todo: Create storage dir, if not existing
 # todo: Add Second FMU storage (Datei liegt im Ordner und rausholen(wie Datei laden), get_fmu())
-
 
 
 @APP.route("/login", methods=["GET", "POST"])
@@ -107,7 +105,8 @@ def add_identifiable(current_user: str):
         OBJECT_STORE.add(identifiable)
     except KeyError:
         return flask.make_response("Identifiable already exists in OBJECT_STORE", 200)
-    return flask.make_response("OK", 200)
+    return flask.make_response(200)
+
 
 @APP.route("/modify_identifiable", methods=["PUT"])
 @auth.token_required
@@ -134,7 +133,8 @@ def modify_identifiable(current_user: str):
     if identifiable_stored is None:
         return flask.make_response("Could not find Identifiable with id {} in repository".format(identifier.id), 404)
     identifiable_stored.update_from(identifiable_new)
-    return flask.make_response("OK", 200)
+    return flask.make_response(200)
+
 
 @APP.route("/get_identifiable", methods=["GET"])
 @auth.token_required
@@ -182,6 +182,7 @@ def get_identifiable(current_user: str):
         200
     )
 
+
 @APP.route("/get_fmu", methods=["GET"])
 @auth.token_required
 def get_fmu(current_user: str):
@@ -202,11 +203,13 @@ def get_fmu(current_user: str):
     file_path: str = fmu_storage_dir+"\\"+file_path_IRI
     if not os.path.isfile(file_path):
         return flask.make_response("Could not fetch FMU-File with IRI {}".format(fmu_IRI), 404)
+
     def generate():
-        with open(file_path, mode='rb', buffering=4096) as myzip:
-            for chunk in myzip:
+        with open(file_path, mode='rb', buffering=4096) as myFmu:
+            for chunk in myFmu:
                 yield chunk
     return Response(stream_with_context(generate()))
+
 
 @APP.route("/add_fmu", methods=["POST"])
 @auth.token_required
@@ -218,20 +221,21 @@ def add_fmu(current_user: str):
 
     :returns:
 
-        - 200
-        - 404, if the PAth of the IRI does not exist
+        - 200, and the IRI of the added FMU-File
+        - 404, if the Path of the IRI does not exist
     """
     data = flask.request.get_data(cache=False)
-    fmu_IRI = flask.request.headers.get("IRI")
+    fmu_name = flask.request.headers.get("name")
     fmu_storage_dir: str = os.path.abspath(config["STORAGE"]["FMU_STORAGE_DIR"])
-    path_with_fmu = fmu_storage_dir+(fmu_IRI.removeprefix("file:"))
-    path_without_fmu = '/'.join(path_with_fmu.split('/')[:-1])
-    if not os.path.isdir(path_without_fmu):
-        return flask.make_response("Path of IRI: {} does not exist".format(fmu_IRI), 404)
-    #!wird FMU ueberschrieben!?
-    with open(path_with_fmu, 'wb', buffering=4096) as myzip:
-        myzip.write(data)
-    return flask.make_response("FMU with IRI: {} was added to the Server".format(fmu_IRI), 200)
+    path_with_fmu = fmu_storage_dir+"\\"+fmu_name
+    if not os.path.isdir(fmu_storage_dir):
+        return flask.make_response("Path of Folder: {} does not exist".format(fmu_storage_dir), 404)
+    print(path_with_fmu)
+    with open(path_with_fmu, 'wb', buffering=4096) as myFmu:
+        myFmu.write(data)
+    fmu_IRI: str = "file:"+fmu_name
+    return flask.make_response(fmu_IRI, 200)
+
 
 @APP.route("/query_semantic_id", methods=["GET"])
 @auth.token_required
