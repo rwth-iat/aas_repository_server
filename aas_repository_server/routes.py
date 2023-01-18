@@ -10,9 +10,11 @@ import werkzeug.security
 
 from basyx.aas import model
 from basyx.aas.adapter.json import json_serialization, json_deserialization
-from aas_repository_server import auth, storage
+#from aas_repository_server import auth, storage
+import auth, storage
+from flask import stream_with_context, Response
 
-
+# todo: Config anpassen, parsing anpassen , storage anpassen
 APP = flask.Flask(__name__)
 config = configparser.ConfigParser()
 config.read([
@@ -23,9 +25,12 @@ config.read([
 # Read config file
 JWT_EXPIRATION_TIME: int = int(config["AUTHENTICATION"]["TOKEN_EXPIRATION_TIME"])  # JWT Expiration Time in minutes
 PORT: int = int(config["GENERAL"]["PORT"])
-STORAGE_DIR: str = os.path.abspath(config["STORAGE"]["STORAGE_DIR"])
-OBJECT_STORE: storage.RegistryObjectStore = storage.RegistryObjectStore(STORAGE_DIR)
+#anpassen (Name)
+AAS_STORAGE_DIR: str = os.path.abspath(config["STORAGE"]["AAS_STORAGE_DIR"])
+#OBJECT Store mit AAS_ initialisieren
+OBJECT_STORE: storage.RegistryObjectStore = storage.RegistryObjectStore(AAS_STORAGE_DIR)
 # todo: Create storage dir, if not existing
+# todo: Add Second FMU storage (Datei liegt im Ordner und rausholen(wie Datei laden), get_fmu())
 
 
 @APP.route("/login", methods=["GET", "POST"])
@@ -79,13 +84,56 @@ def test_authorized(current_user: str):
 @APP.route("/add_identifiable", methods=["POST"])
 @auth.token_required
 def add_identifiable(current_user: str):
-    pass
+    """
+    Request format is a json serialized :class:`basyx.aas.model.base.Identifiable`:
+
+    Add an identifiable to the repository.
+
+    :returns:
+
+        - 200
+        - 400, if the request cannot be parsed
+        - 409, if the Identifiable already exists in the OBJECT_STORE
+    """
+    data = flask.request.get_data(as_text=True)
+    try:
+        identifiable: Optional[model.Identifiable] = json.loads(data, cls=json_deserialization.AASFromJsonDecoder)
+    except json.decoder.JSONDecodeError:
+        return flask.make_response("Could not parse request, not valid JSON", 400)
+    # Todo: Check here if the given user has access rights to the Identifiable
+    try:
+        OBJECT_STORE.add(identifiable)
+    except KeyError:
+        return flask.make_response("Identifiable already exists in OBJECT_STORE", 200)
+    return flask.make_response(200)
 
 
 @APP.route("/modify_identifiable", methods=["PUT"])
 @auth.token_required
 def modify_identifiable(current_user: str):
-    pass
+    """
+    Request format is a json serialized :class:`basyx.aas.model.base.Identifiable`:
+
+    Modify an existing Identifiable by overwriting it with the given one.
+
+    :returns:
+
+        - 200
+        - 400, if the request cannot be parsed
+        - 404, if no result is found
+    """
+    data = flask.request.get_data(as_text=True)
+    try:
+        identifiable_new: Optional[model.Identifiable] = json.loads(data, cls=json_deserialization.AASFromJsonDecoder)
+    except json.decoder.JSONDecodeError:
+        return flask.make_response("Could not parse request, not valid JSON", 400)
+    identifier: Optional[model.Identifier] = identifiable_new.identification
+    identifiable_stored: Optional[model.Identifiable] = OBJECT_STORE.get(identifier)
+    # Todo: Check here if the given user has access rights to the Identifiable
+    if identifiable_stored is None:
+        return flask.make_response("Could not find Identifiable with id {} in repository".format(identifier.id), 404)
+    identifiable_stored.update_from(identifiable_new)
+    return flask.make_response(200)
 
 
 @APP.route("/get_identifiable", methods=["GET"])
@@ -109,7 +157,7 @@ def get_identifiable(current_user: str):
         - 400, if the request cannot be parsed
         - 404, if no result is found
         - 422, if a valid AAS object was given, but not an Identifiable
-     """
+    """
     data = flask.request.get_data(as_text=True)
     # Load the JSON from the request
     try:
@@ -133,6 +181,60 @@ def get_identifiable(current_user: str):
         json.dumps(identifiable, cls=json_serialization.AASToJsonEncoder, indent=4),
         200
     )
+
+
+@APP.route("/get_fmu", methods=["GET"])
+@auth.token_required
+def get_fmu(current_user: str):
+    """
+    Request format is a String IRI
+
+    Returns a compressed FMU-File.
+
+    :returns:
+
+        - 200, with the FMU-File
+        - 404, if no result is found
+    """
+    fmu_IRI = flask.request.get_data(as_text=True)
+    fmu_storage_dir: str = os.path.abspath(config["STORAGE"]["FMU_STORAGE_DIR"])
+    fmu_IRI = fmu_IRI.strip('"')
+    file_path_IRI = fmu_IRI.removeprefix('file:/')
+    file_path: str = fmu_storage_dir+"\\"+file_path_IRI
+    if not os.path.isfile(file_path):
+        return flask.make_response("Could not fetch FMU-File with IRI {}".format(fmu_IRI), 404)
+
+    def generate():
+        with open(file_path, mode='rb', buffering=4096) as myFmu:
+            for chunk in myFmu:
+                yield chunk
+    return Response(stream_with_context(generate()))
+
+
+@APP.route("/add_fmu", methods=["POST"])
+@auth.token_required
+def add_fmu(current_user: str):
+    """
+    Request format is a streamed FMU-File:
+
+    Add an FMU-File to the repository.
+
+    :returns:
+
+        - 200, and the IRI of the added FMU-File
+        - 404, if the Path of the IRI does not exist
+    """
+    data = flask.request.get_data(cache=False)
+    fmu_name = flask.request.headers.get("name")
+    fmu_storage_dir: str = os.path.abspath(config["STORAGE"]["FMU_STORAGE_DIR"])
+    path_with_fmu = fmu_storage_dir+"\\"+fmu_name
+    if not os.path.isdir(fmu_storage_dir):
+        return flask.make_response("Path of Folder: {} does not exist".format(fmu_storage_dir), 404)
+    print(path_with_fmu)
+    with open(path_with_fmu, 'wb', buffering=4096) as myFmu:
+        myFmu.write(data)
+    fmu_IRI: str = "file:"+fmu_name
+    return flask.make_response(fmu_IRI, 200)
 
 
 @APP.route("/query_semantic_id", methods=["GET"])
