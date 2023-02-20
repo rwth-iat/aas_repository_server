@@ -7,4 +7,4 @@ TOKEN_EXPIRATION_TIME = 20
 
 [STORAGE]
 AAS_STORAGE_DIR = ./store/aas_store
-FMU_STORAGE_DIR = ./store/fmu_store
+FILE_STORAGE_DIR = ./store/file_store

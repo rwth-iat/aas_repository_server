@@ -10,8 +10,7 @@ import werkzeug.security
 
 from basyx.aas import model
 from basyx.aas.adapter.json import json_serialization, json_deserialization
-#from aas_repository_server import auth, storage
-import auth, storage
+from aas_repository_server import auth, storage
 from flask import stream_with_context, Response
 
 # todo: Config anpassen, parsing anpassen , storage anpassen
@@ -23,14 +22,17 @@ config.read([
 ])
 
 # Read config file
-JWT_EXPIRATION_TIME: int = int(config["AUTHENTICATION"]["TOKEN_EXPIRATION_TIME"])  # JWT Expiration Time in minutes
+# JWT Expiration Time in minutes
+JWT_EXPIRATION_TIME: int = int(config["AUTHENTICATION"]["TOKEN_EXPIRATION_TIME"])
 PORT: int = int(config["GENERAL"]["PORT"])
-#anpassen (Name)
 AAS_STORAGE_DIR: str = os.path.abspath(config["STORAGE"]["AAS_STORAGE_DIR"])
-#OBJECT Store mit AAS_ initialisieren
+FILE_STORAGE_DIR: str = os.path.abspath(config["STORAGE"]["FILE_STORAGE_DIR"])
+# Create Storage dir, if not existing
+if not os.path.exists(AAS_STORAGE_DIR):
+    os.makedirs(AAS_STORAGE_DIR)
+if not os.path.exists(FILE_STORAGE_DIR):
+    os.makedirs(FILE_STORAGE_DIR)
 OBJECT_STORE: storage.RegistryObjectStore = storage.RegistryObjectStore(AAS_STORAGE_DIR)
-# todo: Create storage dir, if not existing
-# todo: Add Second FMU storage (Datei liegt im Ordner und rausholen(wie Datei laden), get_fmu())
 
 
 @APP.route("/login", methods=["GET", "POST"])
@@ -185,24 +187,23 @@ def get_identifiable(current_user: str):
 
 @APP.route("/get_fmu", methods=["GET"])
 @auth.token_required
-def get_fmu(current_user: str):
+def get_file(current_user: str):
     """
     Request format is a String IRI
 
-    Returns a compressed FMU-File.
+    Returns a File from the FILE_STORAGE_DIR.
 
     :returns:
 
-        - 200, with the FMU-File
+        - 200, with the File
         - 404, if no result is found
     """
-    fmu_IRI = flask.request.get_data(as_text=True)
-    fmu_storage_dir: str = os.path.abspath(config["STORAGE"]["FMU_STORAGE_DIR"])
-    fmu_IRI = fmu_IRI.strip('"')
-    file_path_IRI = fmu_IRI.removeprefix('file:/')
-    file_path: str = fmu_storage_dir+"\\"+file_path_IRI
+    file_iri = flask.request.get_data(as_text=True)
+    file_iri = file_iri.strip('"')
+    file_path_iri = file_iri.removeprefix('file:/')
+    file_path: str = FILE_STORAGE_DIR+"/"+file_path_iri
     if not os.path.isfile(file_path):
-        return flask.make_response("Could not fetch FMU-File with IRI {}".format(fmu_IRI), 404)
+        return flask.make_response("Could not fetch File with IRI {}".format(file_iri), 404)
 
     def generate():
         with open(file_path, mode='rb', buffering=4096) as myFmu:
@@ -213,11 +214,11 @@ def get_fmu(current_user: str):
 
 @APP.route("/add_fmu", methods=["POST"])
 @auth.token_required
-def add_fmu(current_user: str):
+def add_file(current_user: str):
     """
-    Request format is a streamed FMU-File:
+    Request format is a streamed File:
 
-    Add an FMU-File to the repository.
+    Add an File to the FILE_STORAGE_DIR.
 
     :returns:
 
@@ -225,16 +226,13 @@ def add_fmu(current_user: str):
         - 404, if the Path of the IRI does not exist
     """
     data = flask.request.get_data(cache=False)
-    fmu_name = flask.request.headers.get("name")
-    fmu_storage_dir: str = os.path.abspath(config["STORAGE"]["FMU_STORAGE_DIR"])
-    path_with_fmu = fmu_storage_dir+"\\"+fmu_name
-    if not os.path.isdir(fmu_storage_dir):
-        return flask.make_response("Path of Folder: {} does not exist".format(fmu_storage_dir), 404)
-    print(path_with_fmu)
-    with open(path_with_fmu, 'wb', buffering=4096) as myFmu:
+    file_name = flask.request.headers.get("name")
+    path_with_file = FILE_STORAGE_DIR+"/"+file_name
+    print(path_with_file)
+    with open(path_with_file, 'wb', buffering=4096) as myFmu:
         myFmu.write(data)
-    fmu_IRI: str = "file:"+fmu_name
-    return flask.make_response(fmu_IRI, 200)
+    file_iri: str = "file:"+file_name
+    return flask.make_response(file_iri, 200)
 
 
 @APP.route("/query_semantic_id", methods=["GET"])
