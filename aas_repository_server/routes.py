@@ -107,7 +107,7 @@ def add_identifiable(current_user: str):
         OBJECT_STORE.add(identifiable)
     except KeyError:
         return flask.make_response("Identifiable already exists in OBJECT_STORE", 200)
-    return flask.make_response(200)
+    return flask.make_response("Success", 200)
 
 
 @APP.route("/modify_identifiable", methods=["PUT"])
@@ -135,7 +135,7 @@ def modify_identifiable(current_user: str):
     if identifiable_stored is None:
         return flask.make_response("Could not find Identifiable with id {} in repository".format(identifier.id), 404)
     identifiable_stored.update_from(identifiable_new)
-    return flask.make_response(200)
+    return flask.make_response("Success", 200)
 
 
 @APP.route("/get_identifiable", methods=["GET"])
