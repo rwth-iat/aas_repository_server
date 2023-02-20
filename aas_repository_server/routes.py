@@ -185,7 +185,7 @@ def get_identifiable(current_user: str):
     )
 
 
-@APP.route("/get_fmu", methods=["GET"])
+@APP.route("/get_file", methods=["GET"])
 @auth.token_required
 def get_file(current_user: str):
     """
@@ -212,7 +212,7 @@ def get_file(current_user: str):
     return Response(stream_with_context(generate()))
 
 
-@APP.route("/add_fmu", methods=["POST"])
+@APP.route("/post_file", methods=["POST"])
 @auth.token_required
 def add_file(current_user: str):
     """
