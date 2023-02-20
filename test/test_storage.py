@@ -2,10 +2,10 @@ import unittest
 from typing import Set, Dict
 
 from basyx.aas import model
-from aas_repository_server import routes
+from aas_repository_server import routes, storage
 
 
-class RegistryObjectStoreTest(unittest.TestCase):
+class RepositoryObjectStoreTest(unittest.TestCase):
     def setUp(self) -> None:
         """
         Set up the following test case:
@@ -21,6 +21,7 @@ class RegistryObjectStoreTest(unittest.TestCase):
                 - https://example.com/sm/test_submodel03
                 - semanticID: https://example.com/semanticIDs/ONE
         """
+        self.object_store = routes.OBJECT_STORE
         identifier: model.Identifier = model.Identifier(
             id_="https://example.com/sm/test_submodel01",
             id_type=model.IdentifierType.IRI
@@ -48,7 +49,7 @@ class RegistryObjectStoreTest(unittest.TestCase):
                 )
             ]
             )
-        routes.OBJECT_STORE.add(self.identifiable1)
+        self.object_store.add(self.identifiable1)
         identifier: model.Identifier = model.Identifier(
             id_="https://example.com/sm/test_submodel02",
             id_type=model.IdentifierType.IRI
@@ -68,7 +69,7 @@ class RegistryObjectStoreTest(unittest.TestCase):
             id_short="exampleSM",
             semantic_id=self.semantic_id_2
         )
-        routes.OBJECT_STORE.add(self.identifiable2)
+        self.object_store.add(self.identifiable2)
         identifier: model.Identifier = model.Identifier(
             id_="https://example.com/sm/test_submodel03",
             id_type=model.IdentifierType.IRI
@@ -78,16 +79,17 @@ class RegistryObjectStoreTest(unittest.TestCase):
             id_short="exampleSM",
             semantic_id=self.semantic_id_1
         )
-        routes.OBJECT_STORE.add(self.identifiable3)
+        self.object_store.add(self.identifiable3)
 
     def tearDown(self) -> None:
-        routes.OBJECT_STORE.clear()
-        routes.OBJECT_STORE.semantic_id_index = {}
+        self.object_store.clear()
+        self.object_store.semantic_id_index = {}
 
     def test_index_semantic_ids(self):
-        routes.OBJECT_STORE._index_semantic_ids()
-        expected_semantic_id_index: Dict[model.Key, Set[model.Identifier]] = {
-            self.semantic_id_1.key[0]: {self.identifiable1.identification, self.identifiable3.identification},
-            self.semantic_id_2.key[0]: {self.identifiable2.identification}
-        }
-        self.assertEqual(expected_semantic_id_index, routes.OBJECT_STORE.semantic_id_index)
+        self.object_store._index_semantic_ids()
+        query_1 = self.object_store.get_semantic_id(self.semantic_id_1.key[0])
+        # Expected return: Submodel01 and Submodel03
+        self.assertEqual(3, len(query_1))
+        query_2 = self.object_store.get_semantic_id(self.semantic_id_2.key[0])
+        # Expected return: Submodel02
+        self.assertEqual(1, len(query_2))

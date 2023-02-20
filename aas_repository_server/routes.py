@@ -2,7 +2,7 @@ import datetime
 import os
 import configparser
 import json
-from typing import Optional, Set, Dict
+from typing import Optional, List, Dict
 
 import flask
 import jwt
@@ -32,7 +32,7 @@ if not os.path.exists(AAS_STORAGE_DIR):
     os.makedirs(AAS_STORAGE_DIR)
 if not os.path.exists(FILE_STORAGE_DIR):
     os.makedirs(FILE_STORAGE_DIR)
-OBJECT_STORE: storage.RegistryObjectStore = storage.RegistryObjectStore(AAS_STORAGE_DIR)
+OBJECT_STORE: storage.RepositoryObjectStore = storage.RepositoryObjectStore(AAS_STORAGE_DIR)
 
 
 @APP.route("/login", methods=["GET", "POST"])
@@ -239,50 +239,90 @@ def add_file(current_user: str):
 @auth.token_required
 def query_semantic_id(current_user: str):
     """
-    Query all Identifiable objects that either have a semanticID or contain a child having that semanticID.
+    Query the repository for a contained semanticID.
 
+    Specify which attributes of the semanticID should be checked.
     Request format is a json serialized :class:`basyx.aas.model.base.Key` (from a Reference):
 
     .. code-block::
 
         {
-            'type': 'GlobalReference',
-            'idType': 'IRI',
-            'value': 'https://example.com/semanticIDs/ONE',
-            'local': False
+            'semantic_id': {
+                'type': 'GlobalReference',
+                'idType': 'IRI',
+                'value': 'https://example.com/semanticIDs/ONE',
+                'local': False
+            }
+            'check_for_key_type': false,
+            'check_for_key_local': false,
+            'check_for_key_id_type': false,
         }
 
-    Returns a list of identifiers (in no particular order) that contain that semanticID
+    Returns a list of Identifiers of the identifiable the semanticID is contained in
+    and optionally, the Identifier of the parent AssetAdministrationShell, if it exists.
+
+    .. code-block::
+
+        [
+            {
+                'identifier': {
+                    "id": "<Identifier.id string>",
+                    "idType": "<idType string>"
+                },
+                'asset_administration_shell': {
+                    "id": "<Identifier.id string>",
+                    "idType": "<idType string>"
+                }
+            }
+        ]
 
     :returns:
 
-        - 200, with the List of Identifiers
+        - 200, with the above result
         - 400, if the request cannot be parsed
         - 422, if a valid AAS object was given, but not an Identifiable
     """
     data = flask.request.get_data(as_text=True)
     # Load the JSON from the request
     try:
-        key_dict: Dict[str, str] = json.loads(data)
+        data_dict: Dict = json.loads(data)
     except json.decoder.JSONDecodeError:
         return flask.make_response("Could not parse request, not valid JSON", 400)
-    # Check that the request JSON contained in fact an Identifier
+    # Check that the request has all the required fields
     try:
-        semantic_id_key: model.Key = model.Key(
-            type_=json_deserialization.KEY_ELEMENTS_INVERSE[key_dict["type"]],
-            local=True if key_dict["local"] else False,
-            value=key_dict["value"],
-            id_type=json_deserialization.KEY_TYPES_INVERSE[key_dict["idType"]]
+        check_for_key_type: bool = data_dict["check_for_key_type"]
+        check_for_key_local: bool = data_dict["check_for_key_local"]
+        check_for_key_id_type: bool = data_dict["check_for_key_id_type"]
+        semantic_id: model.Key = model.Key(
+            type_=json_deserialization.KEY_ELEMENTS_INVERSE[data_dict["semantic_id"]["type"]],
+            local=True if data_dict["semantic_id"] else False,
+            value=data_dict["semantic_id"]["value"],
+            id_type=json_deserialization.KEY_TYPES_INVERSE[data_dict["semantic_id"]["idType"]]
         )
     except KeyError:
-        return flask.make_response("Request does not contain a Key", 422)
+        return flask.make_response("Request does not have correct format", 422)
     # Get the list of identifiables that contain the semanticID
-    identifiers: Optional[Set[model.Identifier]] = OBJECT_STORE.semantic_id_index.get(semantic_id_key)
+    result = OBJECT_STORE.get_semantic_id(
+        semantic_id=semantic_id,
+        check_for_key_type=check_for_key_type,
+        check_for_key_local=check_for_key_local,
+        check_for_key_id_type=check_for_key_id_type
+    )
     # Todo: Check here if the given user has access rights to the Identifiable
-    if identifiers is None:
-        identifiables = set([])  # Set the identifiables to an empty set
+    jsonable_result: List = []
+    for semantic_index_element in result:
+        jsonable_result.append(
+            {
+                "identifier": semantic_index_element.parent_identifiable,
+                "asset_administration_shell": semantic_index_element.parent_asset_administration_shell
+            }
+        )
     return flask.make_response(
-        json.dumps(list(identifiers), cls=json_serialization.AASToJsonEncoder, indent=4),
+        json.dumps(
+            jsonable_result,
+            cls=json_serialization.AASToJsonEncoder,
+            indent=4
+        ),
         200
     )
 

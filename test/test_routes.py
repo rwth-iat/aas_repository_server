@@ -227,15 +227,26 @@ class QuerySemanticIDTest(unittest.TestCase):
         response = self.test_client.get(
             "/query_semantic_id",
             headers=self.auth_headers,
-            data=json.dumps(semantic_id_key, cls=json_serialization.AASToJsonEncoder)
+            data=json.dumps(
+                {
+                    "semantic_id": semantic_id_key,
+                    "check_for_key_type": False,
+                    "check_for_key_local": False,
+                    "check_for_key_id_type": False
+                },
+                cls=json_serialization.AASToJsonEncoder
+            )
         )
         self.assertEqual(200, response.status_code)
-        identifier_dict = json.loads(response.data, cls=json_deserialization.AASFromJsonDecoder)
+        response_dict = json.loads(
+            response.data,
+            cls=json_deserialization.AASFromJsonDecoder
+        )
         identifiers: Set[model.Identifier] = set({})
-        for i in identifier_dict:
+        for i in response_dict:
             identifier: model.Identifier = model.Identifier(
-                id_=i["id"],
-                id_type=json_deserialization.IDENTIFIER_TYPES_INVERSE[i["idType"]]
+                id_=i["identifier"]["id"],
+                id_type=json_deserialization.IDENTIFIER_TYPES_INVERSE[i["identifier"]["idType"]]
             )
             identifiers.add(identifier)
         self.assertEqual(
@@ -264,6 +275,6 @@ class QuerySemanticIDTest(unittest.TestCase):
         )
         self.assertEqual(422, response.status_code)
         self.assertEqual(
-            "Request does not contain a Key",
+            "Request does not have correct format",
             response.data.decode("utf-8")
         )
