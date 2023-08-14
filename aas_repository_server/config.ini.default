@@ -8,3 +8,6 @@ TOKEN_EXPIRATION_TIME = 20
 [STORAGE]
 AAS_STORAGE_DIR = ./store/aas_store
 FILE_STORAGE_DIR = ./store/file_store
+
+[OPA]
+OPA_URL=http://localhost:8181/v1/data/policy/allow

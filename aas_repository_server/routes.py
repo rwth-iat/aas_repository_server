@@ -2,24 +2,33 @@ import datetime
 import os
 import configparser
 import json
+import requests, logging
 from typing import Optional, List, Dict
+
 
 import flask
 import jwt
 import werkzeug.security
 
+
 from basyx.aas import model
 from basyx.aas.adapter.json import json_serialization, json_deserialization
-from aas_repository_server import auth, storage
-from flask import stream_with_context, Response
+from aas_repository_server\
+    import auth, storage
+from aas_repository_server.access_control import check_authorization, create_OPA_input, AuthorizationError
+from flask import  stream_with_context, abort, Response, request, g
+
 
 # todo: Config anpassen, parsing anpassen , storage anpassen
+
+
 APP = flask.Flask(__name__)
 config = configparser.ConfigParser()
 config.read([
     os.path.join(os.path.dirname(__file__), "config.ini"),
     os.path.join(os.path.dirname(__file__), "config.ini.default")
 ])
+
 
 # Read config file
 # JWT Expiration Time in minutes
@@ -33,6 +42,10 @@ if not os.path.exists(AAS_STORAGE_DIR):
 if not os.path.exists(FILE_STORAGE_DIR):
     os.makedirs(FILE_STORAGE_DIR)
 OBJECT_STORE: storage.RepositoryObjectStore = storage.RepositoryObjectStore(AAS_STORAGE_DIR)
+
+""""OPA config"""
+OPA_URL=config.get("OPA", "OPA_URL", fallback="http://localhost:8181/v1/data/policy/allow")  #Load OPA URL
+APP.logger.setLevel(logging.DEBUG) # Set the logging level to DEBUG
 
 
 @APP.route("/login", methods=["GET", "POST"])
@@ -104,10 +117,19 @@ def add_identifiable(current_user: str):
         return flask.make_response("Could not parse request, not valid JSON", 400)
     # Todo: Check here if the given user has access rights to the Identifiable
     try:
+        input = create_OPA_input()(request, current_user)
+        check_authorization(APP, input,OPA_URL)
+    except Exception as e:
+        APP.logger.exception("Unexpected error querying OPA.")
+        abort(500)
+    try:
+        if isinstance(identifiable, model.AssetAdministrationShell):  # insert the security metamodel automatically for new added AAS
+            generate_security_submodel_template(identifiable)
         OBJECT_STORE.add(identifiable)
     except KeyError:
         return flask.make_response("Identifiable already exists in OBJECT_STORE", 200)
     return flask.make_response("Success", 200)
+
 
 
 @APP.route("/modify_identifiable", methods=["PUT"])
@@ -132,6 +154,12 @@ def modify_identifiable(current_user: str):
     identifier: Optional[model.Identifier] = identifiable_new.identification
     identifiable_stored: Optional[model.Identifiable] = OBJECT_STORE.get(identifier)
     # Todo: Check here if the given user has access rights to the Identifiable
+    try:
+        input  = create_OPA_input(request, current_user, identifier.id)
+        check_authorization(APP, input, OPA_URL)
+    except Exception as e:
+        APP.logger.exception("Unexpected error querying OPA.")
+        abort(500)
     if identifiable_stored is None:
         return flask.make_response("Could not find Identifiable with id {} in repository".format(identifier.id), 404)
     identifiable_stored.update_from(identifiable_new)
@@ -177,12 +205,21 @@ def get_identifiable(current_user: str):
     # Try to resolve the Identifier in the object store
     identifiable: Optional[model.Identifiable] = OBJECT_STORE.get(identifier)
     # Todo: Check here if the given user has access rights to the Identifiable
+    if isinstance(identifiable, model.AssetAdministrationShell):
+        ressource_type= "AssetAdministrationShell"
+    if isinstance(identifiable, model.Submodel):
+        ressource_type="Submodel"
+    try:
+        input  = create_OPA_input()(request, current_user, identifier.id, ressource_type) # type(identifiable)
+        check_authorization(APP, input,OPA_URL)
+    except Exception as e:
+        APP.logger.exception("Unexpected error querying OPA.")
+        abort(500)
     if identifiable is None:
         return flask.make_response("Could not find Identifiable with id {} in repository".format(identifier.id), 404)
     return flask.make_response(
         json.dumps(identifiable, cls=json_serialization.AASToJsonEncoder, indent=4),
-        200
-    )
+            200)
 
 
 @APP.route("/get_file", methods=["GET"])
@@ -311,6 +348,13 @@ def query_semantic_id(current_user: str):
     # Todo: Check here if the given user has access rights to the Identifiable
     jsonable_result: List = []
     for semantic_index_element in result:
+        print(semantic_index_element.semantically_identified_referable)
+        try:
+            input = create_OPA_input()(request, current_user,  semantic_index_element.parent_identifiable.id)
+            check_authorization(APP, input, OPA_URL)
+        except Exception as e:
+            APP.logger.exception("Unexpected error querying OPA.")
+            abort(500)
         jsonable_result.append(
             {
                 "identifier": semantic_index_element.parent_identifiable,
@@ -325,9 +369,93 @@ def query_semantic_id(current_user: str):
         ),
         200
     )
+def generate_security_submodel_template(aas_id: model.AssetAdministrationShell):
 
+    accessRight = {
+        "AAS": {
+            "ressource": aas_id.identification.id,
+            "admin": [("GET", "get_identifiable"), ("POST", "add_identifiable")],
+            "rwthStudent": [("GET", "get_identifiable"), ("POST", "add_identifiable")],
+            "otherStudent": [("GET", "get_identifiable")],
+        },
+        "Submodel Identification": {
+            "ressource": " insert Identifier of submodel Identification",
+            "admin": [("GET", "get_identifiable"), ("POST", "add_identifiable")],
+            "rwthStudent": ["GET", "POST"],
+            "otherStudent": ["GET"],
+        },
+        "Submodel Security": {
+            "ressource": " insert Identifier of submodel security",
+            "admin": [("GET", "get_identifiable"), ("POST", "add_identifiable")],
+            "rwthStudent": ["GET", "POST"],
+            "otherStudent": ["GET"],
+        }
+    }
+    submodel_Security= model.Submodel(
+        identification=model.Identifier('https://acplt.org/{aas_id}/Security_Submodel', model.IdentifierType.IRI),
+        submodel_element={
+            model.Property(
+                id_short='AccessRight',
+                value_type=model.datatypes.Dict,
+                value=accessRight,
+                semantic_id=model.Reference(
+                    (model.Key(
+                        type_=model.KeyElements.GLOBAL_REFERENCE,
+                        local=False,
+                        value='http://acplt.org/Properties/AccessRight',
+                        id_type=model.KeyType.IRI
+                    ),)
+                )
+            ),
+        }
+    )
+
+    aas_id.submodel.add(model.AASReference.from_referable(submodel_Security))
+
+    return submodel_Security
+
+
+
+
+#configure the logging
+logger = logging.getLogger('audit')
+logging.basicConfig(
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S',
+    filename='audit.log',  # Specify the file to store audit logs
+    filemode='a'  # Append mode
+)
+
+# Create a FileHandler for the audit logger
+file_handler = logging.FileHandler('audit.log')
+file_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
+logger.addHandler(file_handler)
+
+
+@APP.after_request
+def after_request(response):
+    """ execute this after each request to extract relevant information from the request and response to create an audit log. """
+
+    logger.info({
+                          "time": datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                          "user_ip": request.remote_addr,
+                          #"user_name": g.user,
+                          "method": request.method,
+                          "request_url": request.path,
+                          "response_status": response.status}
+    )
+    return response
+
+
+
+@APP.errorhandler(AuthorizationError)
+def handle_authorization_error(error):
+    print("test this")
+    return flask.make_response("Authorization Failed", 401)
 
 if __name__ == '__main__':
     print("Running with configuration: {}".format({s: dict(config.items(s)) for s in config.sections()}))
     print("Found {} Users".format(len(auth.USERS)))
     APP.run(port=PORT)
+
+
