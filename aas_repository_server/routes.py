@@ -2,7 +2,7 @@ import datetime
 import os
 import configparser
 import json
-import requests, logging
+import logging
 from typing import Optional, List, Dict
 
 
@@ -16,7 +16,7 @@ from basyx.aas.adapter.json import json_serialization, json_deserialization
 from aas_repository_server\
     import auth, storage
 from aas_repository_server.access_control import check_authorization, create_OPA_input, AuthorizationError
-from flask import  stream_with_context, abort, Response, request, g
+from flask import  stream_with_context, abort, Response, request
 
 
 # todo: Config anpassen, parsing anpassen , storage anpassen
@@ -117,7 +117,7 @@ def add_identifiable(current_user: str):
         return flask.make_response("Could not parse request, not valid JSON", 400)
     # Todo: Check here if the given user has access rights to the Identifiable
     try:
-        input = create_OPA_input()(request, current_user)
+        input = create_OPA_input(request, current_user)
         check_authorization(APP, input,OPA_URL)
     except Exception as e:
         APP.logger.exception("Unexpected error querying OPA.")
@@ -210,7 +210,7 @@ def get_identifiable(current_user: str):
     if isinstance(identifiable, model.Submodel):
         ressource_type="Submodel"
     try:
-        input  = create_OPA_input()(request, current_user, identifier.id, ressource_type) # type(identifiable)
+        input  = create_OPA_input(request, current_user, identifier.id, ressource_type) # type(identifiable)
         check_authorization(APP, input,OPA_URL)
     except Exception as e:
         APP.logger.exception("Unexpected error querying OPA.")
@@ -350,7 +350,7 @@ def query_semantic_id(current_user: str):
     for semantic_index_element in result:
         print(semantic_index_element.semantically_identified_referable)
         try:
-            input = create_OPA_input()(request, current_user,  semantic_index_element.parent_identifiable.id)
+            input = create_OPA_input(request, current_user,  semantic_index_element.parent_identifiable.id)
             check_authorization(APP, input, OPA_URL)
         except Exception as e:
             APP.logger.exception("Unexpected error querying OPA.")
@@ -370,49 +370,55 @@ def query_semantic_id(current_user: str):
         200
     )
 def generate_security_submodel_template(aas_id: model.AssetAdministrationShell):
-
-    accessRight = {
-        "AAS": {
-            "ressource": aas_id.identification.id,
-            "admin": [("GET", "get_identifiable"), ("POST", "add_identifiable")],
-            "rwthStudent": [("GET", "get_identifiable"), ("POST", "add_identifiable")],
-            "otherStudent": [("GET", "get_identifiable")],
-        },
-        "Submodel Identification": {
-            "ressource": " insert Identifier of submodel Identification",
-            "admin": [("GET", "get_identifiable"), ("POST", "add_identifiable")],
-            "rwthStudent": ["GET", "POST"],
-            "otherStudent": ["GET"],
-        },
-        "Submodel Security": {
-            "ressource": " insert Identifier of submodel security",
-            "admin": [("GET", "get_identifiable"), ("POST", "add_identifiable")],
-            "rwthStudent": ["GET", "POST"],
-            "otherStudent": ["GET"],
-        }
-    }
-    submodel_Security= model.Submodel(
-        identification=model.Identifier('https://acplt.org/{aas_id}/Security_Submodel', model.IdentifierType.IRI),
+    """""
+    How to refer to the others submodels in AAS?
+    # Iterate through the submodels of the given AAS and add references to them
+    # the same can be done for the attribute
+    submodel_references = []  # Initialize an empty list to store the references
+    for submodel in aas_id.submodel:
+        submodel_reference = model.SubmodelReference.from_referable(submodel)
+        submodel_references.append(submodel_reference)
+        # Create Element 3 to refer to the Security Submodel itself
+        element_3 = model.SubmodelElement(
+            id_short="submodelSecurity_accessRights"
+        )
+        element_3_value = model.AASReference.from_referable(submodel_Security.identification)
+        element_3.value = element_3_value
+        submodel_Security.submodel_element.append(element_3)
+"""""
+    submodel_Security = model.Submodel(
+        identification=model.Identifier('https://acplt.org//Security_Submodel', model.IdentifierType.IRI),
+        id_short="SecuritySubmodel",
+        semantic_id=model.Reference(tuple([
+            model.Key(
+                type_=model.KeyElements.GLOBAL_REFERENCE,
+                local=False,
+                value="http://acplt.org/Security_SubmodelSemanticID",
+                id_type=model.KeyType.IRI
+            )
+        ])),
         submodel_element={
             model.Property(
-                id_short='AccessRight',
-                value_type=model.datatypes.Dict,
-                value=accessRight,
-                semantic_id=model.Reference(
-                    (model.Key(
-                        type_=model.KeyElements.GLOBAL_REFERENCE,
-                        local=False,
-                        value='http://acplt.org/Properties/AccessRight',
-                        id_type=model.KeyType.IRI
-                    ),)
-                )
+                id_short='ressource',
+                value_type=model.datatypes.String,
+                value=str(model.AASReference.from_referable(aas_id)),
+            ),
+            model.Property(
+                id_short='read',
+                value_type=model.datatypes.String,
+                value=str(['admin', 'rwthStudent', 'otherStudent']),
+            ),
+            model.Property(
+                id_short='modify',
+                value_type=model.datatypes.String,
+                value=str(['admin']),
             ),
         }
     )
 
+    #add the submodel security to the given aas
     aas_id.submodel.add(model.AASReference.from_referable(submodel_Security))
 
-    return submodel_Security
 
 
 

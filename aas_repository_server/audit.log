@@ -3627,3 +3627,109 @@ TypeError: Property.__init__() missing 1 required positional argument: 'id_short
 }
 2023-08-12 18:06:08 - DEBUG - OPA result: {'result': True}
 2023-08-12 18:06:08 - INFO - 127.0.0.1 - - [12/Aug/2023 18:06:08] "POST /add_identifiable HTTP/1.1" 200 -
+2023-08-15 10:19:40 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-15 10:19:40 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-15 10:19:45 - INFO - 127.0.0.1 - - [15/Aug/2023 10:19:45] "GET /login HTTP/1.1" 200 -
+2023-08-15 10:46:43 - INFO - 127.0.0.1 - - [15/Aug/2023 10:46:43] "GET /login HTTP/1.1" 200 -
+2023-08-15 10:46:43 - ERROR - Unexpected error querying OPA.
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 120, in add_identifiable
+    input = create_OPA_input()(request, current_user)
+            ^^^^^^^^^^^^^^^^^^
+TypeError: create_OPA_input() missing 2 required positional arguments: 'request' and 'user'
+2023-08-15 10:46:43 - INFO - 127.0.0.1 - - [15/Aug/2023 10:46:43] "[35m[1mPOST /add_identifiable HTTP/1.1[0m" 500 -
+2023-08-15 10:47:25 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-15 10:47:25 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-15 10:47:31 - INFO - 127.0.0.1 - - [15/Aug/2023 10:47:31] "GET /login HTTP/1.1" 200 -
+2023-08-15 10:47:31 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "user": "anna"
+  }
+}
+2023-08-15 10:47:31 - DEBUG - OPA result: {'result': True}
+2023-08-15 10:47:31 - INFO - 127.0.0.1 - - [15/Aug/2023 10:47:31] "POST /add_identifiable HTTP/1.1" 200 -
+2023-08-15 10:53:07 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-15 10:53:07 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-15 10:53:14 - INFO - 127.0.0.1 - - [15/Aug/2023 10:53:14] "GET /login HTTP/1.1" 200 -
+2023-08-15 10:53:14 - ERROR - Unexpected error querying OPA.
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 213, in get_identifiable
+    input  = create_OPA_input()(request, current_user, identifier.id, ressource_type) # type(identifiable)
+             ^^^^^^^^^^^^^^^^^^
+TypeError: create_OPA_input() missing 2 required positional arguments: 'request' and 'user'
+2023-08-15 10:53:14 - INFO - 127.0.0.1 - - [15/Aug/2023 10:53:14] "[35m[1mGET /get_identifiable HTTP/1.1[0m" 500 -
+2023-08-15 10:54:56 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-15 10:54:56 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-15 10:55:27 - INFO - 127.0.0.1 - - [15/Aug/2023 10:55:27] "GET /login HTTP/1.1" 200 -
+2023-08-15 10:55:28 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "user": "anna"
+  }
+}
+2023-08-15 10:55:28 - DEBUG - OPA result: {'result': True}
+2023-08-15 10:55:28 - INFO - 127.0.0.1 - - [15/Aug/2023 10:55:28] "POST /add_identifiable HTTP/1.1" 200 -
+2023-08-15 15:34:39 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-15 15:34:39 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-15 15:34:50 - INFO - 127.0.0.1 - - [15/Aug/2023 15:34:50] "GET /login HTTP/1.1" 200 -
+2023-08-15 15:34:50 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "user": "anna"
+  }
+}
+2023-08-15 15:34:50 - DEBUG - OPA result: {'result': True}
+2023-08-15 15:34:50 - ERROR - Exception on /add_identifiable [POST]
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\auth.py", line 133, in decorator
+    return f(current_user, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 127, in add_identifiable
+    generate_security_submodel_template(identifiable)
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 377, in generate_security_submodel_template
+    for submodel in aas_id.submodels:
+                    ^^^^^^^^^^^^^^^^
+AttributeError: 'AssetAdministrationShell' object has no attribute 'submodels'
+2023-08-15 15:34:50 - INFO - 127.0.0.1 - - [15/Aug/2023 15:34:50] "[35m[1mPOST /add_identifiable HTTP/1.1[0m" 500 -
+2023-08-15 15:38:13 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-15 15:38:13 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-15 15:38:18 - INFO - 127.0.0.1 - - [15/Aug/2023 15:38:18] "GET /login HTTP/1.1" 200 -
+2023-08-15 15:38:18 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "user": "anna"
+  }
+}
+2023-08-15 15:38:18 - DEBUG - OPA result: {'result': True}
+2023-08-15 15:38:18 - INFO - 127.0.0.1 - - [15/Aug/2023 15:38:18] "POST /add_identifiable HTTP/1.1" 200 -
