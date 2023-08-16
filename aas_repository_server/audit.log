@@ -3733,3 +3733,363 @@ AttributeError: 'AssetAdministrationShell' object has no attribute 'submodels'
 }
 2023-08-15 15:38:18 - DEBUG - OPA result: {'result': True}
 2023-08-15 15:38:18 - INFO - 127.0.0.1 - - [15/Aug/2023 15:38:18] "POST /add_identifiable HTTP/1.1" 200 -
+2023-08-16 10:46:39 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-16 10:46:39 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-16 10:47:30 - INFO - 127.0.0.1 - - [16/Aug/2023 10:47:30] "GET /login HTTP/1.1" 200 -
+2023-08-16 10:53:12 - INFO - 127.0.0.1 - - [16/Aug/2023 10:53:12] "GET /login HTTP/1.1" 200 -
+2023-08-16 10:53:12 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "user": "anna"
+  }
+}
+2023-08-16 10:53:12 - DEBUG - OPA result: {'result': True}
+2023-08-16 10:53:12 - INFO - 127.0.0.1 - - [16/Aug/2023 10:53:12] "POST /add_identifiable HTTP/1.1" 200 -
+2023-08-16 11:16:20 - INFO - 127.0.0.1 - - [16/Aug/2023 11:16:20] "GET /login HTTP/1.1" 200 -
+2023-08-16 11:16:20 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "user": "anna"
+  }
+}
+2023-08-16 11:16:20 - DEBUG - OPA result: {'result': True}
+2023-08-16 11:16:20 - INFO - 127.0.0.1 - - [16/Aug/2023 11:16:20] "POST /add_identifiable HTTP/1.1" 200 -
+2023-08-16 11:16:20 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "GET",
+    "path": [
+      "get_identifiable"
+    ],
+    "user": "anna",
+    "ressource": "https://acplt.org/Simple_AAS",
+    "type": "AssetAdministrationShell"
+  }
+}
+2023-08-16 11:16:20 - DEBUG - OPA result: {'result': True}
+2023-08-16 11:16:20 - INFO - 127.0.0.1 - - [16/Aug/2023 11:16:20] "GET /get_identifiable HTTP/1.1" 200 -
+2023-08-16 12:15:08 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-16 12:15:08 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-16 12:16:26 - INFO - 127.0.0.1 - - [16/Aug/2023 12:16:26] "GET /login HTTP/1.1" 200 -
+2023-08-16 12:16:26 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "user": "anna"
+  }
+}
+2023-08-16 12:16:26 - DEBUG - OPA result: {'result': True}
+2023-08-16 12:16:26 - INFO - 127.0.0.1 - - [16/Aug/2023 12:16:26] "POST /add_identifiable HTTP/1.1" 200 -
+2023-08-16 12:17:22 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-16 12:17:22 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-16 12:17:31 - INFO - 127.0.0.1 - - [16/Aug/2023 12:17:31] "GET /login HTTP/1.1" 200 -
+2023-08-16 12:17:31 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "user": "anna"
+  }
+}
+2023-08-16 12:17:31 - DEBUG - OPA result: {'result': True}
+2023-08-16 12:17:31 - INFO - 127.0.0.1 - - [16/Aug/2023 12:17:31] "POST /add_identifiable HTTP/1.1" 200 -
+2023-08-16 12:34:58 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-16 12:34:58 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-16 12:37:10 - INFO - 127.0.0.1 - - [16/Aug/2023 12:37:10] "GET /login HTTP/1.1" 200 -
+2023-08-16 12:38:06 - INFO - 127.0.0.1 - - [16/Aug/2023 12:38:06] "GET /login HTTP/1.1" 200 -
+2023-08-16 12:38:06 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "user": "anna"
+  }
+}
+2023-08-16 12:38:06 - DEBUG - OPA result: {'result': True}
+2023-08-16 12:38:06 - INFO - 127.0.0.1 - - [16/Aug/2023 12:38:06] "POST /add_identifiable HTTP/1.1" 200 -
+2023-08-16 12:38:37 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-16 12:38:37 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-16 12:39:54 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-16 12:39:54 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-16 12:40:00 - INFO - 127.0.0.1 - - [16/Aug/2023 12:40:00] "GET /login HTTP/1.1" 200 -
+2023-08-16 12:40:00 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "user": "anna"
+  }
+}
+2023-08-16 12:40:00 - DEBUG - OPA result: {'result': True}
+2023-08-16 12:40:00 - INFO - 127.0.0.1 - - [16/Aug/2023 12:40:00] "POST /add_identifiable HTTP/1.1" 200 -
+2023-08-16 13:16:09 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-16 13:16:09 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-16 13:16:16 - INFO - 127.0.0.1 - - [16/Aug/2023 13:16:16] "GET /login HTTP/1.1" 200 -
+2023-08-16 13:16:16 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "user": "anna"
+  }
+}
+2023-08-16 13:16:16 - DEBUG - OPA result: {'result': True}
+2023-08-16 13:16:16 - INFO - 127.0.0.1 - - [16/Aug/2023 13:16:16] "POST /add_identifiable HTTP/1.1" 200 -
+2023-08-16 14:01:27 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-16 14:01:27 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-16 14:02:01 - INFO - 127.0.0.1 - - [16/Aug/2023 14:02:01] "GET /login HTTP/1.1" 200 -
+2023-08-16 14:02:01 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "GET",
+    "path": [
+      "get_identifiable"
+    ],
+    "user": "anna",
+    "ressource": "https://acplt.org/ExampleSubmodel16"
+  }
+}
+2023-08-16 14:02:01 - DEBUG - OPA result: {'result': True}
+2023-08-16 14:02:01 - INFO - 127.0.0.1 - - [16/Aug/2023 14:02:01] "GET /get_identifiable HTTP/1.1" 200 -
+2023-08-16 14:02:01 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "user": "anna"
+  }
+}
+2023-08-16 14:02:01 - DEBUG - OPA result: {'result': True}
+2023-08-16 14:02:01 - INFO - 127.0.0.1 - - [16/Aug/2023 14:02:01] "POST /add_identifiable HTTP/1.1" 200 -
+2023-08-16 14:02:01 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "user": "anna"
+  }
+}
+2023-08-16 14:02:01 - DEBUG - OPA result: {'result': True}
+2023-08-16 14:02:01 - INFO - 127.0.0.1 - - [16/Aug/2023 14:02:01] "POST /add_identifiable HTTP/1.1" 200 -
+2023-08-16 14:02:01 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "user": "anna"
+  }
+}
+2023-08-16 14:02:01 - DEBUG - OPA result: {'result': True}
+2023-08-16 14:02:01 - INFO - 127.0.0.1 - - [16/Aug/2023 14:02:01] "POST /add_identifiable HTTP/1.1" 200 -
+2023-08-16 14:02:01 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "GET",
+    "path": [
+      "query_semantic_id"
+    ],
+    "user": "anna",
+    "ressource": "https://acplt.org/ExampleSubmodel16"
+  }
+}
+2023-08-16 14:02:01 - DEBUG - OPA result: {'result': False}
+2023-08-16 14:02:01 - ERROR - Unexpected error querying OPA.
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 353, in query_semantic_id
+    check_authorization(APP, input, OPA_URL)
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\access_control.py", line 77, in check_authorization
+    abort(401) # status code 401: unauthorized
+    ^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\helpers.py", line 277, in abort
+    current_app.aborter(code, *args, **kwargs)
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\werkzeug\exceptions.py", line 861, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.Unauthorized: 401 Unauthorized: The server could not verify that you are authorized to access the URL requested. You either supplied the wrong credentials (e.g. a bad password), or your browser doesn't understand how to supply the credentials required.
+2023-08-16 14:02:02 - INFO - 127.0.0.1 - - [16/Aug/2023 14:02:02] "[35m[1mGET /query_semantic_id HTTP/1.1[0m" 500 -
+2023-08-16 14:02:13 - INFO - 127.0.0.1 - - [16/Aug/2023 14:02:13] "GET /login HTTP/1.1" 200 -
+2023-08-16 14:02:13 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "user": "anna"
+  }
+}
+2023-08-16 14:02:13 - DEBUG - OPA result: {'result': True}
+2023-08-16 14:02:13 - INFO - 127.0.0.1 - - [16/Aug/2023 14:02:13] "POST /add_identifiable HTTP/1.1" 200 -
+2023-08-16 14:02:23 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-16 14:02:23 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-16 14:04:44 - INFO - 127.0.0.1 - - [16/Aug/2023 14:04:44] "GET /login HTTP/1.1" 200 -
+2023-08-16 14:04:44 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "user": "anna"
+  }
+}
+2023-08-16 14:04:44 - DEBUG - OPA result: {'result': True}
+2023-08-16 14:04:44 - INFO - 127.0.0.1 - - [16/Aug/2023 14:04:44] "POST /add_identifiable HTTP/1.1" 200 -
+2023-08-16 14:04:44 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "user": "anna"
+  }
+}
+2023-08-16 14:04:44 - DEBUG - OPA result: {'result': True}
+2023-08-16 14:04:44 - INFO - 127.0.0.1 - - [16/Aug/2023 14:04:44] "POST /add_identifiable HTTP/1.1" 200 -
+2023-08-16 14:04:44 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "user": "anna"
+  }
+}
+2023-08-16 14:04:44 - DEBUG - OPA result: {'result': True}
+2023-08-16 14:04:44 - INFO - 127.0.0.1 - - [16/Aug/2023 14:04:44] "POST /add_identifiable HTTP/1.1" 200 -
+2023-08-16 14:04:44 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "user": "anna"
+  }
+}
+2023-08-16 14:04:44 - DEBUG - OPA result: {'result': True}
+2023-08-16 14:04:44 - INFO - 127.0.0.1 - - [16/Aug/2023 14:04:44] "POST /add_identifiable HTTP/1.1" 200 -
+2023-08-16 14:04:44 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "user": "anna"
+  }
+}
+2023-08-16 14:04:44 - DEBUG - OPA result: {'result': True}
+2023-08-16 14:04:44 - INFO - 127.0.0.1 - - [16/Aug/2023 14:04:44] "POST /add_identifiable HTTP/1.1" 200 -
+2023-08-16 14:04:44 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "user": "anna"
+  }
+}
+2023-08-16 14:04:44 - DEBUG - OPA result: {'result': True}
+2023-08-16 14:04:44 - INFO - 127.0.0.1 - - [16/Aug/2023 14:04:44] "POST /add_identifiable HTTP/1.1" 200 -
+2023-08-16 14:16:47 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-16 14:16:47 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-16 14:19:34 - INFO - 127.0.0.1 - - [16/Aug/2023 14:19:34] "GET /login HTTP/1.1" 200 -
+2023-08-16 14:19:34 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "user": "anna"
+  }
+}
+2023-08-16 14:19:34 - DEBUG - OPA result: {'result': True}
+2023-08-16 14:19:34 - INFO - 127.0.0.1 - - [16/Aug/2023 14:19:34] "POST /add_identifiable HTTP/1.1" 200 -
+2023-08-16 14:21:36 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-16 14:21:36 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-16 14:23:38 - INFO - 127.0.0.1 - - [16/Aug/2023 14:23:38] "GET /login HTTP/1.1" 200 -
+2023-08-16 14:23:38 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "user": "anna"
+  }
+}
+2023-08-16 14:23:38 - DEBUG - OPA result: {'result': True}
+2023-08-16 14:23:38 - INFO - 127.0.0.1 - - [16/Aug/2023 14:23:38] "POST /add_identifiable HTTP/1.1" 200 -
+2023-08-16 14:25:11 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-16 14:25:11 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-16 14:25:18 - INFO - 127.0.0.1 - - [16/Aug/2023 14:25:18] "GET /login HTTP/1.1" 200 -
+2023-08-16 14:25:18 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "user": "anna"
+  }
+}
+2023-08-16 14:25:18 - DEBUG - OPA result: {'result': True}
+2023-08-16 14:25:18 - INFO - 127.0.0.1 - - [16/Aug/2023 14:25:18] "POST /add_identifiable HTTP/1.1" 200 -
+2023-08-16 14:34:25 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-16 14:34:25 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-16 14:35:17 - INFO - 127.0.0.1 - - [16/Aug/2023 14:35:17] "GET /login HTTP/1.1" 200 -
+2023-08-16 14:35:17 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "user": "anna"
+  }
+}
+2023-08-16 14:35:17 - DEBUG - OPA result: {'result': True}
+2023-08-16 14:35:17 - INFO - 127.0.0.1 - - [16/Aug/2023 14:35:17] "POST /add_identifiable HTTP/1.1" 200 -
+2023-08-16 14:35:17 - ERROR - Exception on /get_identifiable [GET]
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\auth.py", line 133, in decorator
+    return f(current_user, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 208, in get_identifiable
+    ressource_identifier, submodels_security = extract_accessRights_from_submodelSecurity(identifiable)
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\access_control.py", line 86, in extract_accessRights_from_submodelSecurity
+    for submodel_element in aas_id.submodel("SecuritySubmodel"):
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'set' object is not callable
+2023-08-16 14:35:17 - INFO - 127.0.0.1 - - [16/Aug/2023 14:35:17] "[35m[1mGET /get_identifiable HTTP/1.1[0m" 500 -

@@ -15,7 +15,7 @@ from basyx.aas import model
 from basyx.aas.adapter.json import json_serialization, json_deserialization
 from aas_repository_server\
     import auth, storage
-from aas_repository_server.access_control import check_authorization, create_OPA_input, AuthorizationError
+from aas_repository_server.access_control import check_authorization, create_OPA_input, AuthorizationError, extract_accessRights_from_submodelSecurity
 from flask import  stream_with_context, abort, Response, request
 
 
@@ -205,12 +205,11 @@ def get_identifiable(current_user: str):
     # Try to resolve the Identifier in the object store
     identifiable: Optional[model.Identifiable] = OBJECT_STORE.get(identifier)
     # Todo: Check here if the given user has access rights to the Identifiable
-    if isinstance(identifiable, model.AssetAdministrationShell):
-        ressource_type= "AssetAdministrationShell"
-    if isinstance(identifiable, model.Submodel):
-        ressource_type="Submodel"
+    ressource_identifier, submodels_security = extract_accessRights_from_submodelSecurity(identifiable)
+    print("Ressource Identifier:", ressource_identifier)
+    print("Submodel Security Roles:", submodels_security)
     try:
-        input  = create_OPA_input(request, current_user, identifier.id, ressource_type) # type(identifiable)
+        input  = create_OPA_input(request, current_user, identifier.id) # type(identifiable)
         check_authorization(APP, input,OPA_URL)
     except Exception as e:
         APP.logger.exception("Unexpected error querying OPA.")
@@ -387,21 +386,13 @@ def generate_security_submodel_template(aas_id: model.AssetAdministrationShell):
         submodel_Security.submodel_element.append(element_3)
 """""
     submodel_Security = model.Submodel(
-        identification=model.Identifier('https://acplt.org//Security_Submodel', model.IdentifierType.IRI),
+        identification=model.Identifier('https://acplt.org/Security_Submodel', model.IdentifierType.IRI),
         id_short="SecuritySubmodel",
-        semantic_id=model.Reference(tuple([
-            model.Key(
-                type_=model.KeyElements.GLOBAL_REFERENCE,
-                local=False,
-                value="http://acplt.org/Security_SubmodelSemanticID",
-                id_type=model.KeyType.IRI
-            )
-        ])),
         submodel_element={
             model.Property(
                 id_short='ressource',
                 value_type=model.datatypes.String,
-                value=str(model.AASReference.from_referable(aas_id)),
+                value=aas_id.identification.id
             ),
             model.Property(
                 id_short='read',
@@ -415,13 +406,9 @@ def generate_security_submodel_template(aas_id: model.AssetAdministrationShell):
             ),
         }
     )
-
-    #add the submodel security to the given aas
+    #add the security submodel to the given aas
+    OBJECT_STORE.add(submodel_Security)
     aas_id.submodel.add(model.AASReference.from_referable(submodel_Security))
-
-
-
-
 
 #configure the logging
 logger = logging.getLogger('audit')
