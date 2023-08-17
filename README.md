@@ -29,7 +29,7 @@ Access control is achieved through a combination of user authentication(not yet 
    ```
    - To verify that OPA is correctly installed and configured, open a terminal or command prompt and navigate to the folder where the OPA executable is located. Run the following command to check the version of OPA: 
    ```bash
-   ./opa version
+   opa version
    ```
    If you see the version information printed, OPA is successfully installed and configured.
 
