@@ -1,3 +1,5 @@
+# This is an example demonstrating how policies with a security submodel could look like.
+# This file itself remains static, while the inputs sent to OPA change.
 package policy
 
 import future.keywords.if
