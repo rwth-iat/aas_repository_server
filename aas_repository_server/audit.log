@@ -4096,3 +4096,295 @@ TypeError: 'set' object is not callable
 2023-08-16 15:30:11 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on http://127.0.0.1:2234
 2023-08-16 15:30:11 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-20 16:39:31 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-20 16:39:31 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-20 16:40:00 - INFO - 127.0.0.1 - - [20/Aug/2023 16:40:00] "GET /login HTTP/1.1" 200 -
+2023-08-20 16:40:00 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "user": "anna"
+  }
+}
+2023-08-20 16:40:00 - DEBUG - OPA result: {'result': False}
+2023-08-20 16:40:00 - ERROR - Unexpected error querying OPA.
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 123, in add_identifiable
+    check_authorization(APP, input,OPA_URL)
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\access_control.py", line 101, in check_authorization
+    abort(401) # status code 401: unauthorized
+    ^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\helpers.py", line 277, in abort
+    current_app.aborter(code, *args, **kwargs)
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\werkzeug\exceptions.py", line 861, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.Unauthorized: 401 Unauthorized: The server could not verify that you are authorized to access the URL requested. You either supplied the wrong credentials (e.g. a bad password), or your browser doesn't understand how to supply the credentials required.
+2023-08-20 16:40:00 - INFO - 127.0.0.1 - - [20/Aug/2023 16:40:00] "[35m[1mPOST /add_identifiable HTTP/1.1[0m" 500 -
+2023-08-20 16:41:44 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-20 16:41:44 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-20 16:41:49 - INFO - 127.0.0.1 - - [20/Aug/2023 16:41:49] "GET /login HTTP/1.1" 200 -
+2023-08-20 16:41:49 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: None
+2023-08-20 16:41:49 - DEBUG - OPA result: {'result': False, 'warning': {'code': 'api_usage_warning', 'message': "'input' key missing from the request"}}
+2023-08-20 16:41:49 - ERROR - Unexpected error querying OPA.
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 124, in add_identifiable
+    check_authorization(APP, input,OPA_URL)
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\access_control.py", line 101, in check_authorization
+    abort(401) # status code 401: unauthorized
+    ^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\helpers.py", line 277, in abort
+    current_app.aborter(code, *args, **kwargs)
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\werkzeug\exceptions.py", line 861, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.Unauthorized: 401 Unauthorized: The server could not verify that you are authorized to access the URL requested. You either supplied the wrong credentials (e.g. a bad password), or your browser doesn't understand how to supply the credentials required.
+2023-08-20 16:41:49 - INFO - 127.0.0.1 - - [20/Aug/2023 16:41:49] "[35m[1mPOST /add_identifiable HTTP/1.1[0m" 500 -
+2023-08-20 16:49:51 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-20 16:49:51 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-20 16:50:07 - INFO - 127.0.0.1 - - [20/Aug/2023 16:50:07] "GET /login HTTP/1.1" 200 -
+2023-08-20 16:50:07 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: None
+2023-08-20 16:50:07 - DEBUG - OPA result: {'result': False, 'warning': {'code': 'api_usage_warning', 'message': "'input' key missing from the request"}}
+2023-08-20 16:50:07 - ERROR - Unexpected error querying OPA.
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 127, in add_identifiable
+    check_authorization(APP, input,OPA_URL)
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\access_control.py", line 101, in check_authorization
+    abort(401) # status code 401: unauthorized
+    ^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\helpers.py", line 277, in abort
+    current_app.aborter(code, *args, **kwargs)
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\werkzeug\exceptions.py", line 861, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.Unauthorized: 401 Unauthorized: The server could not verify that you are authorized to access the URL requested. You either supplied the wrong credentials (e.g. a bad password), or your browser doesn't understand how to supply the credentials required.
+2023-08-20 16:50:07 - INFO - 127.0.0.1 - - [20/Aug/2023 16:50:07] "[35m[1mPOST /add_identifiable HTTP/1.1[0m" 500 -
+2023-08-20 16:57:04 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-20 16:57:04 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-20 16:57:10 - INFO - 127.0.0.1 - - [20/Aug/2023 16:57:10] "GET /login HTTP/1.1" 200 -
+2023-08-20 16:57:10 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: None
+2023-08-20 16:57:10 - DEBUG - OPA result: {'result': False, 'warning': {'code': 'api_usage_warning', 'message': "'input' key missing from the request"}}
+2023-08-20 16:57:10 - ERROR - Unexpected error querying OPA.
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 128, in add_identifiable
+    check_authorization(APP, input,OPA_URL)
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\access_control.py", line 101, in check_authorization
+    abort(401) # status code 401: unauthorized
+    ^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\helpers.py", line 277, in abort
+    current_app.aborter(code, *args, **kwargs)
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\werkzeug\exceptions.py", line 861, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.Unauthorized: 401 Unauthorized: The server could not verify that you are authorized to access the URL requested. You either supplied the wrong credentials (e.g. a bad password), or your browser doesn't understand how to supply the credentials required.
+2023-08-20 16:57:10 - INFO - 127.0.0.1 - - [20/Aug/2023 16:57:10] "[35m[1mPOST /add_identifiable HTTP/1.1[0m" 500 -
+2023-08-20 16:58:26 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-20 16:58:26 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-20 16:58:34 - INFO - 127.0.0.1 - - [20/Aug/2023 16:58:34] "GET /login HTTP/1.1" 200 -
+2023-08-20 16:58:34 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: None
+2023-08-20 16:58:34 - DEBUG - OPA result: {'result': False, 'warning': {'code': 'api_usage_warning', 'message': "'input' key missing from the request"}}
+2023-08-20 16:58:34 - ERROR - Unexpected error querying OPA.
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 128, in add_identifiable
+    check_authorization(APP, input,OPA_URL)
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\access_control.py", line 101, in check_authorization
+    abort(401) # status code 401: unauthorized
+    ^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\helpers.py", line 277, in abort
+    current_app.aborter(code, *args, **kwargs)
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\werkzeug\exceptions.py", line 861, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.Unauthorized: 401 Unauthorized: The server could not verify that you are authorized to access the URL requested. You either supplied the wrong credentials (e.g. a bad password), or your browser doesn't understand how to supply the credentials required.
+2023-08-20 16:58:34 - INFO - 127.0.0.1 - - [20/Aug/2023 16:58:34] "[35m[1mPOST /add_identifiable HTTP/1.1[0m" 500 -
+2023-08-20 16:59:20 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-20 16:59:20 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-20 16:59:25 - INFO - 127.0.0.1 - - [20/Aug/2023 16:59:25] "GET /login HTTP/1.1" 200 -
+2023-08-20 16:59:25 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: None
+2023-08-20 16:59:25 - DEBUG - OPA result: {'result': False, 'warning': {'code': 'api_usage_warning', 'message': "'input' key missing from the request"}}
+2023-08-20 16:59:25 - ERROR - Unexpected error querying OPA.
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 128, in add_identifiable
+    check_authorization(APP, input,OPA_URL)
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\access_control.py", line 101, in check_authorization
+    abort(401) # status code 401: unauthorized
+    ^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\helpers.py", line 277, in abort
+    current_app.aborter(code, *args, **kwargs)
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\werkzeug\exceptions.py", line 861, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.Unauthorized: 401 Unauthorized: The server could not verify that you are authorized to access the URL requested. You either supplied the wrong credentials (e.g. a bad password), or your browser doesn't understand how to supply the credentials required.
+2023-08-20 16:59:25 - INFO - 127.0.0.1 - - [20/Aug/2023 16:59:25] "[35m[1mPOST /add_identifiable HTTP/1.1[0m" 500 -
+2023-08-20 17:11:44 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-20 17:11:44 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-20 17:11:49 - INFO - 127.0.0.1 - - [20/Aug/2023 17:11:49] "GET /login HTTP/1.1" 200 -
+2023-08-20 17:11:49 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "role": "admin",
+    "pathS": "get_identifiable",
+    "roleS": {
+      "r1": "admin",
+      "r2": "rwthStudent",
+      "r3": "otherStudent"
+    }
+  }
+}
+2023-08-20 17:11:49 - DEBUG - OPA result: {'result': True}
+2023-08-20 17:11:49 - INFO - 127.0.0.1 - - [20/Aug/2023 17:11:49] "POST /add_identifiable HTTP/1.1" 200 -
+2023-08-20 17:11:49 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "GET",
+    "path": [
+      "get_identifiable"
+    ],
+    "role": "admin",
+    "pathS": "get_identifiable",
+    "roleS": {
+      "r1": "admin",
+      "r2": "rwthStudent",
+      "r3": "otherStudent"
+    }
+  }
+}
+2023-08-20 17:11:49 - DEBUG - OPA result: {'result': False}
+2023-08-20 17:11:49 - ERROR - Unexpected error querying OPA.
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 222, in get_identifiable
+    check_authorization(APP, input,OPA_URL)
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\access_control.py", line 101, in check_authorization
+    abort(401) # status code 401: unauthorized
+    ^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\helpers.py", line 277, in abort
+    current_app.aborter(code, *args, **kwargs)
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\werkzeug\exceptions.py", line 861, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.Unauthorized: 401 Unauthorized: The server could not verify that you are authorized to access the URL requested. You either supplied the wrong credentials (e.g. a bad password), or your browser doesn't understand how to supply the credentials required.
+2023-08-20 17:11:49 - INFO - 127.0.0.1 - - [20/Aug/2023 17:11:49] "[35m[1mGET /get_identifiable HTTP/1.1[0m" 500 -
+2023-08-20 17:13:45 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-20 17:13:45 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-20 17:13:52 - INFO - 127.0.0.1 - - [20/Aug/2023 17:13:52] "GET /login HTTP/1.1" 200 -
+2023-08-20 17:13:52 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "",
+      "add_identifiable"
+    ],
+    "role": "admin",
+    "pathS": "get_identifiable",
+    "roleS": {
+      "r1": "admin",
+      "r2": "rwthStudent",
+      "r3": "otherStudent"
+    }
+  }
+}
+2023-08-20 17:13:52 - DEBUG - OPA result: {'result': True}
+2023-08-20 17:13:52 - INFO - 127.0.0.1 - - [20/Aug/2023 17:13:52] "POST /add_identifiable HTTP/1.1" 200 -
+2023-08-20 17:13:52 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "GET",
+    "path": [
+      "",
+      "get_identifiable"
+    ],
+    "role": "admin",
+    "pathS": "get_identifiable",
+    "roleS": {
+      "r1": "admin",
+      "r2": "rwthStudent",
+      "r3": "otherStudent"
+    }
+  }
+}
+2023-08-20 17:13:52 - DEBUG - OPA result: {'result': False}
+2023-08-20 17:13:52 - ERROR - Unexpected error querying OPA.
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 222, in get_identifiable
+    check_authorization(APP, input,OPA_URL)
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\access_control.py", line 101, in check_authorization
+    abort(401) # status code 401: unauthorized
+    ^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\helpers.py", line 277, in abort
+    current_app.aborter(code, *args, **kwargs)
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\werkzeug\exceptions.py", line 861, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.Unauthorized: 401 Unauthorized: The server could not verify that you are authorized to access the URL requested. You either supplied the wrong credentials (e.g. a bad password), or your browser doesn't understand how to supply the credentials required.
+2023-08-20 17:13:52 - INFO - 127.0.0.1 - - [20/Aug/2023 17:13:52] "[35m[1mGET /get_identifiable HTTP/1.1[0m" 500 -
+2023-08-20 17:17:32 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-20 17:17:32 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-20 17:17:44 - INFO - 127.0.0.1 - - [20/Aug/2023 17:17:44] "GET /login HTTP/1.1" 200 -
+2023-08-20 17:17:44 - ERROR - Exception on /add_identifiable [POST]
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\auth.py", line 133, in decorator
+    return f(current_user, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 116, in add_identifiable
+    access_rights = {
+                    ^
+TypeError: unhashable type: 'list'
+2023-08-20 17:17:44 - INFO - 127.0.0.1 - - [20/Aug/2023 17:17:44] "[35m[1mPOST /add_identifiable HTTP/1.1[0m" 500 -
+2023-08-20 17:20:38 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-20 17:20:38 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-20 17:20:47 - INFO - 127.0.0.1 - - [20/Aug/2023 17:20:47] "GET /login HTTP/1.1" 200 -
+2023-08-20 17:20:47 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "role": "admin",
+    "pathS": [
+      "get_identifiable"
+    ],
+    "roleS": {
+      "r1": "admin",
+      "r2": "rwthStudent",
+      "r3": "otherStudent"
+    }
+  }
+}
+2023-08-20 17:20:47 - DEBUG - OPA result: {'result': True}
+2023-08-20 17:20:47 - INFO - 127.0.0.1 - - [20/Aug/2023 17:20:47] "POST /add_identifiable HTTP/1.1" 200 -
+2023-08-20 17:20:47 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "GET",
+    "path": [
+      "get_identifiable"
+    ],
+    "role": "admin",
+    "pathS": [
+      "get_identifiable"
+    ],
+    "roleS": {
+      "r1": "admin",
+      "r2": "rwthStudent",
+      "r3": "otherStudent"
+    }
+  }
+}
+2023-08-20 17:20:47 - DEBUG - OPA result: {'result': True}
+2023-08-20 17:20:47 - INFO - 127.0.0.1 - - [20/Aug/2023 17:20:47] "GET /get_identifiable HTTP/1.1" 200 -

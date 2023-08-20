@@ -13,9 +13,11 @@ import werkzeug.security
 
 from basyx.aas import model
 from basyx.aas.adapter.json import json_serialization, json_deserialization
+from basyx.aas.util import traversal
+
 from aas_repository_server\
     import auth, storage
-from aas_repository_server.access_control import check_authorization, create_OPA_input, AuthorizationError, extract_accessRights_from_submodelSecurity
+from aas_repository_server.access_control import check_authorization, create_OPA_input, create_OPA_input_with_sub_secrurity
 from flask import  stream_with_context, abort, Response, request
 
 
@@ -111,13 +113,18 @@ def add_identifiable(current_user: str):
         - 409, if the Identifiable already exists in the OBJECT_STORE
     """
     data = flask.request.get_data(as_text=True)
+    access_rights = {
+        "get_identifiable": ["admin", "rwthStudent", "otherStudent"]
+    }
     try:
         identifiable: Optional[model.Identifiable] = json.loads(data, cls=json_deserialization.AASFromJsonDecoder)
     except json.decoder.JSONDecodeError:
         return flask.make_response("Could not parse request, not valid JSON", 400)
     # Todo: Check here if the given user has access rights to the Identifiable
     try:
-        input = create_OPA_input(request, current_user)
+        #input = create_OPA_input(request, current_user)
+        input = create_OPA_input_with_sub_secrurity(request, "admin", access_rights)
+        #print(input)
         check_authorization(APP, input,OPA_URL)
     except Exception as e:
         APP.logger.exception("Unexpected error querying OPA.")
@@ -189,6 +196,9 @@ def get_identifiable(current_user: str):
         - 422, if a valid AAS object was given, but not an Identifiable
     """
     data = flask.request.get_data(as_text=True)
+    access_rights = {
+        "get_identifiable": ["admin", "rwthStudent", "otherStudent"]
+    }
     # Load the JSON from the request
     try:
         identifier_dict: Dict[str, str] = json.loads(data)
@@ -205,11 +215,10 @@ def get_identifiable(current_user: str):
     # Try to resolve the Identifier in the object store
     identifiable: Optional[model.Identifiable] = OBJECT_STORE.get(identifier)
     # Todo: Check here if the given user has access rights to the Identifiable
-    ressource_identifier, submodels_security = extract_accessRights_from_submodelSecurity(identifiable)
-    print("Ressource Identifier:", ressource_identifier)
-    print("Submodel Security Roles:", submodels_security)
+
     try:
-        input  = create_OPA_input(request, current_user, identifier.id) # type(identifiable)
+        #input  = create_OPA_input(request, current_user, identifier.id) # type(identifiable)
+        input= create_OPA_input_with_sub_secrurity(request,"admin",access_rights)
         check_authorization(APP, input,OPA_URL)
     except Exception as e:
         APP.logger.exception("Unexpected error querying OPA.")
@@ -368,47 +377,93 @@ def query_semantic_id(current_user: str):
         ),
         200
     )
-def generate_security_submodel_template(aas_id: model.AssetAdministrationShell):
-    """""
-    How to refer to the others submodels in AAS?
-    # Iterate through the submodels of the given AAS and add references to them
-    # the same can be done for the attribute
-    submodel_references = []  # Initialize an empty list to store the references
-    for submodel in aas_id.submodel:
-        submodel_reference = model.SubmodelReference.from_referable(submodel)
-        submodel_references.append(submodel_reference)
-        # Create Element 3 to refer to the Security Submodel itself
-        element_3 = model.SubmodelElement(
-            id_short="submodelSecurity_accessRights"
-        )
-        element_3_value = model.AASReference.from_referable(submodel_Security.identification)
-        element_3.value = element_3_value
-        submodel_Security.submodel_element.append(element_3)
-"""""
-    submodel_Security = model.Submodel(
+
+
+def generate_security_submodel_template(aas: model.AssetAdministrationShell):
+    """
+      Generate a security submodel template and add it to the given Asset Administration Shell (AAS).
+
+      This function creates a a simplified version of security submodel template, which defines default access rights and security rules for the
+      corresponding AAS. It adds the generated security submodel to the given AAS.
+
+      Parameters:
+          aas (model.AssetAdministrationShell): The Asset Administration Shell to which the security submodel
+                                                  will be added.
+
+      Returns:
+          None
+      """
+    submodel_security = model.Submodel(
         identification=model.Identifier('https://acplt.org/Security_Submodel', model.IdentifierType.IRI),
         id_short="SecuritySubmodel",
         submodel_element={
             model.Property(
                 id_short='ressource',
                 value_type=model.datatypes.String,
-                value=aas_id.identification.id
+                value=aas.identification.id
             ),
             model.Property(
-                id_short='read',
+                id_short='get_identifiable',
                 value_type=model.datatypes.String,
                 value=str(['admin', 'rwthStudent', 'otherStudent']),
             ),
             model.Property(
-                id_short='modify',
+                id_short='modify_identifiable',
                 value_type=model.datatypes.String,
                 value=str(['admin']),
             ),
         }
     )
     #add the security submodel to the given aas
-    OBJECT_STORE.add(submodel_Security)
-    aas_id.submodel.add(model.AASReference.from_referable(submodel_Security))
+    OBJECT_STORE.add(submodel_security)
+    aas.submodel.add(model.AASReference.from_referable(submodel_security))
+
+
+def extract_accessRights_from_submodelSecurity(identifiable: model.Identifiable, endpoint: str):
+    """
+    Extract access rights for a specific endpoint and a specific ressource from the security submodel of an Identifiable.
+
+    This function retrieves access rights from the security submodel associated with the provided Identifiable.
+    If the provided Identifiable is not an AAS, the function will attempt to locate the corresponding AAS.
+    It searches for the security submodel within the Identifiable and returns the extracted access rights as a dictionary.
+
+    Parameters:
+        identifiable (model.Identifiable): The Identifiable from which to extract access rights.
+
+    Returns:
+        dict: A dictionary containing the extracted access rights.
+
+    Example Output: {'get_identifiable': ['admin', 'rwthStudent', 'otherStudent']}
+
+    Note:
+        - Not yet functional
+        - This function assumes a specific structure of the security submodel for access rights extraction.
+    """
+    submodel_security: model.Submodel
+    access_rights = {}  # Dictionary to store submodel security roles
+
+    if not isinstance(identifiable, model.AssetAdministrationShell):  # if the identifiable is not an AAS, retrieve the corresponding AAS
+         aas_reference = identifiable.parent
+         identifiable= aas_reference.get_referable(aas_reference)
+         identifiable = model.AASReference.from_referable(identifiable)  # identifiable= aas_reference.resolve(aas_reference)
+
+
+    for submodel in identifiable.submodel:
+        if submodel.id_short == "SecuritySubmodel":
+            submodel_security = submodel
+            break    # Exit the loop after finding the security submodel
+    else:
+        raise ValueError("No security submodel could be associated with the provided Identifiable")
+
+    for submodel_element in traversal.walk_submodel(submodel_security):
+        if submodel_element.id_short == "ressource":
+            ressource_identifier = submodel_element
+        elif submodel_element.id_short == "read":
+            access_rights['read'] = submodel_element.value #How to access the property's value within the Submodel Element?
+        elif submodel_element.id_short == "modify":
+            access_rights['modify'] = submodel_element.value
+
+    return access_rights
 
 #configure the logging
 logger = logging.getLogger('audit')
@@ -439,12 +494,6 @@ def after_request(response):
     )
     return response
 
-
-
-@APP.errorhandler(AuthorizationError)
-def handle_authorization_error(error):
-    print("test this")
-    return flask.make_response("Authorization Failed", 401)
 
 if __name__ == '__main__':
     print("Running with configuration: {}".format({s: dict(config.items(s)) for s in config.sections()}))

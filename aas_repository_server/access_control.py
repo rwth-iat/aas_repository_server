@@ -4,7 +4,6 @@ from basyx.aas.model import Identifiable
 
 from flask import abort
 from basyx.aas import model
-from basyx.aas.util import traversal
 
 
 def create_OPA_input(request: flask.Request, user: str, ressource: str = None,
@@ -38,6 +37,29 @@ def create_OPA_input(request: flask.Request, user: str, ressource: str = None,
         input["input"]["type"] = type
     return json.dumps(input, indent=2)
 
+def create_OPA_input_with_sub_secrurity(request: flask.Request, user_role: str, access_rights: dict):
+    """
+       Creates an input dictionary in the format suitable for sending to OPA, including access rules information
+       extracted from submodel security.
+
+       Args:
+           request (flask.Request): The Flask request object containing the HTTP request information.
+           user_role (str): The role of the user making the request.
+           access_rights (dict): A dictionary containing access rights information.
+       """
+    input= {
+        "input": {
+            "method":request.method,
+            "path": request.path.rstrip('/').strip().split("/")[1:],
+            "role": user_role,
+            "pathS": "",
+            "roleS": {},
+        }
+    }
+    for operation, roles in access_rights.items():
+        input["input"]["pathS"] = [operation]
+        input["input"]["roleS"] = {f"r{i + 1}": role for i, role in enumerate(roles)}
+    return json.dumps(input, indent=2)
 
 def check_authorization(app,input,url):
     """
@@ -78,61 +100,3 @@ def check_authorization(app,input,url):
         print("Sorry, but you are not allowed to perform this action")
         abort(401) # status code 401: unauthorized
 
-
-def extract_accessRights_from_submodelSecurity(aas_id: model.AssetAdministrationShell):
-
-    #this should be adapted based on the structure of the Security Submodel
-    submodel_security = {}  # Dictionary to store submodel security roles
-    ressource_identifier = None  # Initialize the resource identifier
-    # remenber to implement exception, e.g when ressource_identifier is none, what if no security Submodel is found
-    # Iterate through the submodel elements of the Security Submodel
-    """""
-    security_submodel = None
-    for submodel in aas_id.submodel:
-        if submodel. == 'https://acplt.org/Security_Submodel':
-            security_submodel = submodel
-            break
-    for submodel_element in traversal.walk_submodel(submodel):
-    for submodel_element in aas_id.submodel("SecuritySubmodel"):
-        if submodel_element.id_short == "ressource":
-            ressource_identifier = submodel_element.value
-        elif submodel_element.id_short == "read":
-            submodel_security['read'] = submodel_element.value
-        elif submodel_element.id_short == "modify":
-            submodel_security['modify'] = submodel_element.value
-    """""
-    return ressource_identifier, submodel_security
-
-
-
-
-def create_rego_file(ressource_identifier, submodels_security):
-    # Assuming you have a dictionary of submodels_security, where keys are submodel id_short and values are lists of roles
-    # For example: submodels_security = {'read': ['admin', 'rwthStudent', 'otherStudent'], 'modify': ['admin']}
-
-    rego_policy = f'''
-package access
-
-default allow = false
-
-allow {{
-    input.method = "GET"
-    input.ressource = "{ressource_identifier}"
-    input.role = role
-    role = {submodels_security['read']}
-}}
-
-allow {{
-    input.method = "PUT"
-    input.ressource = "{ressource_identifier}"
-    input.role = role
-    role = {submodels_security['modify']}
-}}
-    '''
-
-    with open('policy.rego', 'w') as f:
-        f.write(rego_policy)
-
-
-class AuthorizationError(Exception):
-    """Exception raised when authorization fails."""

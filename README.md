@@ -40,6 +40,7 @@ Access control is achieved through a combination of user authentication(not yet 
 3. **Policy Definition**:
    - Define authorization policies using the Rego policy language supported by OPA.
    - You can start with the example policy (policy.rego file) provided in this repository and adjust it according to your needs 
+   - The policy file should be stored in the same folder as the OPA executable
    - See https://www.openpolicyagent.org/docs/latest/#rego for more about the rego language
    - You can also experiment with rego and test policy code online: https://play.openpolicyagent.org/
    
