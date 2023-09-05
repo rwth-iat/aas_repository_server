@@ -153,3 +153,25 @@ class RepositoryObjectStore(local_file.LocalFileObjectStore):
         self.semantic_id_index = {}
         for identifiable in self:
             self._add_identifiable_to_semantic_id_index(identifiable)
+
+    def find_aas_containing_submodel(self, submodel:model.Submodel):
+        """
+            Find the Asset Administration Shell (AAS) containing the provided Submodel.
+
+            This method iterates through the stored AAS objects and checks if any of them is referenced
+            by the provided Submodel.  If a matching AAS is found, it is returned; otherwise, None is returned.
+
+            Parameters:
+                submodel (model.Submodel): The Submodel for which you want to find the corresponding AAS.
+
+            Returns:
+                model.AssetAdministrationShell or None: The AAS containing the Submodel, or None if not found.
+            """
+        for aas_stored in self:
+            if isinstance(aas_stored, model.AssetAdministrationShell):
+                for submodel_ref in aas_stored.submodel:
+                    submodel_res = submodel_ref.resolve(self)
+                    if submodel_res == submodel:
+                        return aas_stored
+        return None
+

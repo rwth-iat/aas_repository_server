@@ -3,41 +3,8 @@ import requests, json
 from basyx.aas.model import Identifiable
 
 from flask import abort
-from basyx.aas import model
 
-
-def create_OPA_input(request: flask.Request, user: str, ressource: str = None,
-                 type: str = None):
-    """
-       Creates an input dictionary formatted for Open Policy Agent (OPA) evaluation based on the provided parameters.
-
-       This function takes a Flask request object, user identifier, optional resource identifier, and optional type identifier
-       and constructs an input dictionary suitable for use in OPA policy evaluations. The constructed input includes information
-       about the HTTP method, path, user, resource, and type.
-
-       Parameters:
-       - request (flask.Request): The Flask request object representing the incoming HTTP request.
-       - user (str): The identifier of the user making the request.
-       - ressource (str, optional): The identifier of the requested resource, if applicable.
-       - type (str, optional): The type of the requested resource, if applicable.
-
-       Returns:
-       - str: A JSON-formatted string representing the OPA input dictionary.
-       """
-    input= {
-        "input": {
-            "method": request.method,
-            "path": request.path.rstrip('/').strip().split("/")[1:],
-            "user": user,
-        }
-    }
-    if ressource is not None:
-        input["input"]["ressource"] = ressource
-    if type is not None:
-        input["input"]["type"] = type
-    return json.dumps(input, indent=2)
-
-def create_OPA_input_with_sub_secrurity(request: flask.Request, user_role: str, access_rights: dict):
+def create_OPA_input(request: flask.Request, current_user: str, access_rights: dict=None):
     """
        Creates an input dictionary in the format suitable for sending to OPA, including access rules information
        extracted from submodel security.
@@ -47,6 +14,13 @@ def create_OPA_input_with_sub_secrurity(request: flask.Request, user_role: str, 
            user_role (str): The role of the user making the request.
            access_rights (dict): A dictionary containing access rights information.
        """
+    user_role=""
+    if current_user=="anna":     # please note that in practice these information should be provided by the authentication server or an identity provider
+        user_role="rwthStudent"  # So you won't need to do this mapping
+    elif current_user=="armin":
+        user_role="admin"
+    elif current_user=="ugo":
+        user_role="otherStudent"
     input= {
         "input": {
             "method":request.method,
@@ -56,9 +30,10 @@ def create_OPA_input_with_sub_secrurity(request: flask.Request, user_role: str, 
             "roleS": {},
         }
     }
-    for operation, roles in access_rights.items():
-        input["input"]["pathS"] = [operation]
-        input["input"]["roleS"] = {f"r{i + 1}": role for i, role in enumerate(roles)}
+    if access_rights:
+        for operation, roles in access_rights.items():
+            input["input"]["pathS"] = [operation]
+            input["input"]["roleS"] = {f"r{i + 1}": role for i, role in enumerate(roles)}
     return json.dumps(input, indent=2)
 
 def check_authorization(app,input,url):

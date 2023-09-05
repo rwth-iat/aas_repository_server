@@ -4388,3 +4388,1358 @@ TypeError: unhashable type: 'list'
 }
 2023-08-20 17:20:47 - DEBUG - OPA result: {'result': True}
 2023-08-20 17:20:47 - INFO - 127.0.0.1 - - [20/Aug/2023 17:20:47] "GET /get_identifiable HTTP/1.1" 200 -
+2023-08-22 23:55:44 - INFO - 127.0.0.1 - - [22/Aug/2023 23:55:44] "GET /login HTTP/1.1" 200 -
+2023-08-22 23:55:44 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "role": "admin",
+    "pathS": [
+      "get_identifiable"
+    ],
+    "roleS": {
+      "r1": "admin",
+      "r2": "rwthStudent",
+      "r3": "otherStudent"
+    }
+  }
+}
+2023-08-22 23:55:44 - DEBUG - OPA result: {'result': True}
+2023-08-22 23:55:44 - INFO - 127.0.0.1 - - [22/Aug/2023 23:55:44] "POST /add_identifiable HTTP/1.1" 200 -
+2023-08-22 23:58:02 - INFO - 127.0.0.1 - - [22/Aug/2023 23:58:02] "GET /login HTTP/1.1" 200 -
+2023-08-22 23:58:02 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "role": "admin",
+    "pathS": [
+      "get_identifiable"
+    ],
+    "roleS": {
+      "r1": "admin",
+      "r2": "rwthStudent",
+      "r3": "otherStudent"
+    }
+  }
+}
+2023-08-22 23:58:02 - DEBUG - OPA result: {'result': True}
+2023-08-22 23:58:02 - INFO - 127.0.0.1 - - [22/Aug/2023 23:58:02] "POST /add_identifiable HTTP/1.1" 200 -
+2023-08-25 10:26:10 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-25 10:26:10 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-25 10:26:23 - INFO - 127.0.0.1 - - [25/Aug/2023 10:26:23] "GET /login HTTP/1.1" 200 -
+2023-08-25 10:26:23 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "role": "admin",
+    "pathS": [
+      "get_identifiable"
+    ],
+    "roleS": {
+      "r1": "admin",
+      "r2": "rwthStudent",
+      "r3": "otherStudent"
+    }
+  }
+}
+2023-08-25 10:26:23 - DEBUG - OPA result: {'result': True}
+2023-08-25 10:26:23 - INFO - 127.0.0.1 - - [25/Aug/2023 10:26:23] "POST /add_identifiable HTTP/1.1" 200 -
+2023-08-25 10:26:23 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "GET",
+    "path": [
+      "get_identifiable"
+    ],
+    "role": "admin",
+    "pathS": [
+      "get_identifiable"
+    ],
+    "roleS": {
+      "r1": "admin",
+      "r2": "rwthStudent",
+      "r3": "otherStudent"
+    }
+  }
+}
+2023-08-25 10:26:23 - DEBUG - OPA result: {'result': True}
+2023-08-25 10:26:23 - INFO - 127.0.0.1 - - [25/Aug/2023 10:26:23] "GET /get_identifiable HTTP/1.1" 200 -
+2023-08-25 10:26:24 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "role": "admin",
+    "pathS": [
+      "get_identifiable"
+    ],
+    "roleS": {
+      "r1": "admin",
+      "r2": "rwthStudent",
+      "r3": "otherStudent"
+    }
+  }
+}
+2023-08-25 10:26:24 - DEBUG - OPA result: {'result': True}
+2023-08-25 10:26:24 - INFO - 127.0.0.1 - - [25/Aug/2023 10:26:24] "POST /add_identifiable HTTP/1.1" 200 -
+2023-08-25 10:28:53 - INFO - 127.0.0.1 - - [25/Aug/2023 10:28:53] "GET /login HTTP/1.1" 200 -
+2023-08-25 10:28:53 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "role": "admin",
+    "pathS": [
+      "get_identifiable"
+    ],
+    "roleS": {
+      "r1": "admin",
+      "r2": "rwthStudent",
+      "r3": "otherStudent"
+    }
+  }
+}
+2023-08-25 10:28:53 - DEBUG - OPA result: {'result': True}
+2023-08-25 10:28:53 - INFO - 127.0.0.1 - - [25/Aug/2023 10:28:53] "POST /add_identifiable HTTP/1.1" 200 -
+2023-08-25 10:28:53 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "GET",
+    "path": [
+      "get_identifiable"
+    ],
+    "role": "admin",
+    "pathS": [
+      "get_identifiable"
+    ],
+    "roleS": {
+      "r1": "admin",
+      "r2": "rwthStudent",
+      "r3": "otherStudent"
+    }
+  }
+}
+2023-08-25 10:28:53 - DEBUG - OPA result: {'result': True}
+2023-08-25 10:28:53 - INFO - 127.0.0.1 - - [25/Aug/2023 10:28:53] "GET /get_identifiable HTTP/1.1" 200 -
+2023-08-28 13:40:29 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-28 13:40:29 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-28 13:40:38 - INFO - 127.0.0.1 - - [28/Aug/2023 13:40:38] "GET /login HTTP/1.1" 200 -
+2023-08-28 13:40:38 - ERROR - Exception on /add_identifiable [POST]
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\auth.py", line 133, in decorator
+    return f(current_user, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 125, in add_identifiable
+    access_rules= extract_accessRights_from_submodelSecurity(identifiable, request.path)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 495, in extract_accessRights_from_submodelSecurity
+    raise ValueError("No security submodel could be found in the provided list")
+ValueError: No security submodel could be found in the provided list
+2023-08-28 13:40:38 - INFO - 127.0.0.1 - - [28/Aug/2023 13:40:38] "[35m[1mPOST /add_identifiable HTTP/1.1[0m" 500 -
+2023-08-28 13:43:39 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-28 13:43:39 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-28 13:43:45 - INFO - 127.0.0.1 - - [28/Aug/2023 13:43:45] "GET /login HTTP/1.1" 200 -
+2023-08-28 13:43:45 - ERROR - Exception on /add_identifiable [POST]
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\auth.py", line 133, in decorator
+    return f(current_user, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 120, in add_identifiable
+    access_rules= extract_accessRights_from_submodelSecurity(identifiable, request.path)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 490, in extract_accessRights_from_submodelSecurity
+    raise ValueError("No security submodel could be found in the provided list")
+ValueError: No security submodel could be found in the provided list
+2023-08-28 13:43:45 - INFO - 127.0.0.1 - - [28/Aug/2023 13:43:45] "[35m[1mPOST /add_identifiable HTTP/1.1[0m" 500 -
+2023-08-28 13:44:16 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-28 13:44:16 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-28 13:44:22 - INFO - 127.0.0.1 - - [28/Aug/2023 13:44:22] "GET /login HTTP/1.1" 200 -
+2023-08-28 13:44:22 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: None
+2023-08-28 13:44:22 - DEBUG - OPA result: {'result': False, 'warning': {'code': 'api_usage_warning', 'message': "'input' key missing from the request"}}
+2023-08-28 13:44:22 - ERROR - Unexpected error querying OPA.
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 124, in add_identifiable
+    check_authorization(APP, input,OPA_URL)
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\accessControl.py", line 102, in check_authorization
+    abort(401) # status code 401: unauthorized
+    ^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\helpers.py", line 277, in abort
+    current_app.aborter(code, *args, **kwargs)
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\werkzeug\exceptions.py", line 861, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.Unauthorized: 401 Unauthorized: The server could not verify that you are authorized to access the URL requested. You either supplied the wrong credentials (e.g. a bad password), or your browser doesn't understand how to supply the credentials required.
+2023-08-28 13:44:22 - INFO - 127.0.0.1 - - [28/Aug/2023 13:44:22] "[35m[1mPOST /add_identifiable HTTP/1.1[0m" 500 -
+2023-08-28 13:47:04 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-28 13:47:04 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-28 13:47:13 - INFO - 127.0.0.1 - - [28/Aug/2023 13:47:13] "GET /login HTTP/1.1" 200 -
+2023-08-28 13:47:13 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "role": "admin",
+    "pathS": "",
+    "roleS": {}
+  }
+}
+2023-08-28 13:47:13 - DEBUG - OPA result: {'result': True}
+2023-08-28 13:47:13 - INFO - 127.0.0.1 - - [28/Aug/2023 13:47:13] "POST /add_identifiable HTTP/1.1" 200 -
+2023-08-28 13:47:13 - ERROR - Exception on /get_identifiable [GET]
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\auth.py", line 133, in decorator
+    return f(current_user, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 213, in get_identifiable
+    access_rules = extract_accessRights_from_submodelSecurity(identifiable, request.path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 488, in extract_accessRights_from_submodelSecurity
+    raise ValueError("No security submodel could be found in the provided list")
+ValueError: No security submodel could be found in the provided list
+2023-08-28 13:47:13 - INFO - 127.0.0.1 - - [28/Aug/2023 13:47:13] "[35m[1mGET /get_identifiable HTTP/1.1[0m" 500 -
+2023-08-28 13:48:47 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-28 13:48:47 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-28 13:49:40 - INFO - 127.0.0.1 - - [28/Aug/2023 13:49:40] "GET /login HTTP/1.1" 200 -
+2023-08-28 13:49:40 - ERROR - Exception on /get_identifiable [GET]
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\auth.py", line 133, in decorator
+    return f(current_user, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 213, in get_identifiable
+    access_rules = extract_accessRights_from_submodelSecurity(identifiable, request.path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 488, in extract_accessRights_from_submodelSecurity
+    raise ValueError("No security submodel could be found in the provided list")
+ValueError: No security submodel could be found in the provided list
+2023-08-28 13:49:40 - INFO - 127.0.0.1 - - [28/Aug/2023 13:49:40] "[35m[1mGET /get_identifiable HTTP/1.1[0m" 500 -
+2023-08-28 13:51:36 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-28 13:51:36 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-28 13:51:42 - INFO - 127.0.0.1 - - [28/Aug/2023 13:51:42] "GET /login HTTP/1.1" 200 -
+2023-08-28 13:51:42 - ERROR - Exception on /get_identifiable [GET]
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\auth.py", line 133, in decorator
+    return f(current_user, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 213, in get_identifiable
+    access_rules = extract_accessRights_from_submodelSecurity(identifiable, request.path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 489, in extract_accessRights_from_submodelSecurity
+    raise ValueError("No security submodel could be found in the provided list")
+ValueError: No security submodel could be found in the provided list
+2023-08-28 13:51:42 - INFO - 127.0.0.1 - - [28/Aug/2023 13:51:42] "[35m[1mGET /get_identifiable HTTP/1.1[0m" 500 -
+2023-08-28 13:52:54 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-28 13:52:54 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-28 13:52:59 - INFO - 127.0.0.1 - - [28/Aug/2023 13:52:59] "GET /login HTTP/1.1" 200 -
+2023-08-28 13:52:59 - ERROR - Exception on /get_identifiable [GET]
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\auth.py", line 133, in decorator
+    return f(current_user, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 213, in get_identifiable
+    access_rules = extract_accessRights_from_submodelSecurity(identifiable, request.path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 489, in extract_accessRights_from_submodelSecurity
+    raise ValueError("No security submodel could be found in the provided list")
+ValueError: No security submodel could be found in the provided list
+2023-08-28 13:52:59 - INFO - 127.0.0.1 - - [28/Aug/2023 13:52:59] "[35m[1mGET /get_identifiable HTTP/1.1[0m" 500 -
+2023-08-28 14:02:08 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-28 14:02:08 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-28 14:02:13 - INFO - 127.0.0.1 - - [28/Aug/2023 14:02:13] "GET /login HTTP/1.1" 200 -
+2023-08-28 14:02:13 - ERROR - Exception on /get_identifiable [GET]
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\auth.py", line 133, in decorator
+    return f(current_user, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 213, in get_identifiable
+    access_rules = extract_accessRights_from_submodelSecurity(identifiable, request.path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 490, in extract_accessRights_from_submodelSecurity
+    raise ValueError("No security submodel could be found in the provided list")
+ValueError: No security submodel could be found in the provided list
+2023-08-28 14:02:13 - INFO - 127.0.0.1 - - [28/Aug/2023 14:02:13] "[35m[1mGET /get_identifiable HTTP/1.1[0m" 500 -
+2023-08-28 14:07:04 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-28 14:07:04 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-28 14:07:10 - INFO - 127.0.0.1 - - [28/Aug/2023 14:07:10] "GET /login HTTP/1.1" 200 -
+2023-08-28 14:07:10 - ERROR - Exception on /get_identifiable [GET]
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\auth.py", line 133, in decorator
+    return f(current_user, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 214, in get_identifiable
+    access_rules = extract_accessRights_from_submodelSecurity(identifiable, request.path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 491, in extract_accessRights_from_submodelSecurity
+    raise ValueError("No security submodel could be found in the provided list")
+ValueError: No security submodel could be found in the provided list
+2023-08-28 14:07:10 - INFO - 127.0.0.1 - - [28/Aug/2023 14:07:10] "[35m[1mGET /get_identifiable HTTP/1.1[0m" 500 -
+2023-08-28 14:57:46 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-28 14:57:46 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-28 14:57:52 - INFO - 127.0.0.1 - - [28/Aug/2023 14:57:52] "GET /login HTTP/1.1" 200 -
+2023-08-28 14:57:52 - ERROR - Exception on /get_identifiable [GET]
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\auth.py", line 133, in decorator
+    return f(current_user, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 213, in get_identifiable
+    access_rules = extract_accessRights_from_submodelSecurity(identifiable, request.path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 491, in extract_accessRights_from_submodelSecurity
+    raise ValueError("No security submodel could be found in the provided list")
+ValueError: No security submodel could be found in the provided list
+2023-08-28 14:57:52 - INFO - 127.0.0.1 - - [28/Aug/2023 14:57:52] "[35m[1mGET /get_identifiable HTTP/1.1[0m" 500 -
+2023-08-28 14:59:02 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-28 14:59:02 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-28 14:59:07 - INFO - 127.0.0.1 - - [28/Aug/2023 14:59:07] "GET /login HTTP/1.1" 200 -
+2023-08-28 14:59:07 - ERROR - Exception on /get_identifiable [GET]
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\auth.py", line 133, in decorator
+    return f(current_user, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 213, in get_identifiable
+    access_rules = extract_accessRights_from_submodelSecurity(identifiable, request.path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 490, in extract_accessRights_from_submodelSecurity
+    raise ValueError("No security submodel could be found in the provided list")
+ValueError: No security submodel could be found in the provided list
+2023-08-28 14:59:07 - INFO - 127.0.0.1 - - [28/Aug/2023 14:59:07] "[35m[1mGET /get_identifiable HTTP/1.1[0m" 500 -
+2023-08-28 15:17:02 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-28 15:17:02 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-28 15:17:12 - INFO - 127.0.0.1 - - [28/Aug/2023 15:17:12] "GET /login HTTP/1.1" 200 -
+2023-08-28 15:17:12 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "GET",
+    "path": [
+      "get_identifiable"
+    ],
+    "role": "admin",
+    "pathS": "",
+    "roleS": {}
+  }
+}
+2023-08-28 15:17:12 - DEBUG - OPA result: {'result': False}
+2023-08-28 15:17:12 - ERROR - Unexpected error querying OPA.
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 217, in get_identifiable
+    check_authorization(APP, input,OPA_URL)
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\accessControl.py", line 102, in check_authorization
+    abort(401) # status code 401: unauthorized
+    ^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\helpers.py", line 277, in abort
+    current_app.aborter(code, *args, **kwargs)
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\werkzeug\exceptions.py", line 861, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.Unauthorized: 401 Unauthorized: The server could not verify that you are authorized to access the URL requested. You either supplied the wrong credentials (e.g. a bad password), or your browser doesn't understand how to supply the credentials required.
+2023-08-28 15:17:12 - INFO - 127.0.0.1 - - [28/Aug/2023 15:17:12] "[35m[1mGET /get_identifiable HTTP/1.1[0m" 500 -
+2023-08-28 15:28:32 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-28 15:28:32 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-28 15:28:45 - INFO - 127.0.0.1 - - [28/Aug/2023 15:28:45] "GET /login HTTP/1.1" 200 -
+2023-08-28 15:28:45 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "GET",
+    "path": [
+      "get_identifiable"
+    ],
+    "role": "admin",
+    "pathS": "",
+    "roleS": {}
+  }
+}
+2023-08-28 15:28:45 - DEBUG - OPA result: {'result': False}
+2023-08-28 15:28:45 - ERROR - Unexpected error querying OPA.
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 217, in get_identifiable
+    check_authorization(APP, input,OPA_URL)
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\accessControl.py", line 102, in check_authorization
+    abort(401) # status code 401: unauthorized
+    ^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\helpers.py", line 277, in abort
+    current_app.aborter(code, *args, **kwargs)
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\werkzeug\exceptions.py", line 861, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.Unauthorized: 401 Unauthorized: The server could not verify that you are authorized to access the URL requested. You either supplied the wrong credentials (e.g. a bad password), or your browser doesn't understand how to supply the credentials required.
+2023-08-28 15:28:45 - INFO - 127.0.0.1 - - [28/Aug/2023 15:28:45] "[35m[1mGET /get_identifiable HTTP/1.1[0m" 500 -
+2023-08-28 15:29:45 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-28 15:29:45 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-28 15:29:51 - INFO - 127.0.0.1 - - [28/Aug/2023 15:29:51] "GET /login HTTP/1.1" 200 -
+2023-08-28 15:29:51 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "GET",
+    "path": [
+      "get_identifiable"
+    ],
+    "role": "admin",
+    "pathS": "",
+    "roleS": {}
+  }
+}
+2023-08-28 15:29:51 - DEBUG - OPA result: {'result': False}
+2023-08-28 15:29:51 - ERROR - Unexpected error querying OPA.
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 217, in get_identifiable
+    check_authorization(APP, input,OPA_URL)
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\accessControl.py", line 102, in check_authorization
+    abort(401) # status code 401: unauthorized
+    ^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\helpers.py", line 277, in abort
+    current_app.aborter(code, *args, **kwargs)
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\werkzeug\exceptions.py", line 861, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.Unauthorized: 401 Unauthorized: The server could not verify that you are authorized to access the URL requested. You either supplied the wrong credentials (e.g. a bad password), or your browser doesn't understand how to supply the credentials required.
+2023-08-28 15:29:51 - INFO - 127.0.0.1 - - [28/Aug/2023 15:29:51] "[35m[1mGET /get_identifiable HTTP/1.1[0m" 500 -
+2023-08-28 15:34:08 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-28 15:34:08 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-28 15:34:19 - INFO - 127.0.0.1 - - [28/Aug/2023 15:34:19] "GET /login HTTP/1.1" 200 -
+2023-08-28 15:34:19 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "GET",
+    "path": [
+      "get_identifiable"
+    ],
+    "role": "admin",
+    "pathS": "",
+    "roleS": {}
+  }
+}
+2023-08-28 15:34:19 - DEBUG - OPA result: {'result': False}
+2023-08-28 15:34:19 - ERROR - Unexpected error querying OPA.
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 217, in get_identifiable
+    check_authorization(APP, input,OPA_URL)
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\accessControl.py", line 102, in check_authorization
+    abort(401) # status code 401: unauthorized
+    ^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\helpers.py", line 277, in abort
+    current_app.aborter(code, *args, **kwargs)
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\werkzeug\exceptions.py", line 861, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.Unauthorized: 401 Unauthorized: The server could not verify that you are authorized to access the URL requested. You either supplied the wrong credentials (e.g. a bad password), or your browser doesn't understand how to supply the credentials required.
+2023-08-28 15:34:19 - INFO - 127.0.0.1 - - [28/Aug/2023 15:34:19] "[35m[1mGET /get_identifiable HTTP/1.1[0m" 500 -
+2023-08-28 15:35:12 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-28 15:35:12 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-28 15:35:16 - INFO - 127.0.0.1 - - [28/Aug/2023 15:35:16] "GET /login HTTP/1.1" 200 -
+2023-08-28 15:35:16 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "GET",
+    "path": [
+      "get_identifiable"
+    ],
+    "role": "admin",
+    "pathS": "",
+    "roleS": {}
+  }
+}
+2023-08-28 15:35:16 - DEBUG - OPA result: {'result': False}
+2023-08-28 15:35:16 - ERROR - Unexpected error querying OPA.
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 217, in get_identifiable
+    check_authorization(APP, input,OPA_URL)
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\accessControl.py", line 102, in check_authorization
+    abort(401) # status code 401: unauthorized
+    ^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\helpers.py", line 277, in abort
+    current_app.aborter(code, *args, **kwargs)
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\werkzeug\exceptions.py", line 861, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.Unauthorized: 401 Unauthorized: The server could not verify that you are authorized to access the URL requested. You either supplied the wrong credentials (e.g. a bad password), or your browser doesn't understand how to supply the credentials required.
+2023-08-28 15:35:16 - INFO - 127.0.0.1 - - [28/Aug/2023 15:35:16] "[35m[1mGET /get_identifiable HTTP/1.1[0m" 500 -
+2023-08-28 15:42:29 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-28 15:42:29 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-28 15:42:35 - INFO - 127.0.0.1 - - [28/Aug/2023 15:42:35] "GET /login HTTP/1.1" 200 -
+2023-08-28 15:42:35 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "GET",
+    "path": [
+      "get_identifiable"
+    ],
+    "role": "admin",
+    "pathS": "",
+    "roleS": {}
+  }
+}
+2023-08-28 15:42:35 - DEBUG - OPA result: {'result': False}
+2023-08-28 15:42:35 - ERROR - Unexpected error querying OPA.
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 217, in get_identifiable
+    check_authorization(APP, input,OPA_URL)
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\accessControl.py", line 102, in check_authorization
+    abort(401) # status code 401: unauthorized
+    ^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\helpers.py", line 277, in abort
+    current_app.aborter(code, *args, **kwargs)
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\werkzeug\exceptions.py", line 861, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.Unauthorized: 401 Unauthorized: The server could not verify that you are authorized to access the URL requested. You either supplied the wrong credentials (e.g. a bad password), or your browser doesn't understand how to supply the credentials required.
+2023-08-28 15:42:35 - INFO - 127.0.0.1 - - [28/Aug/2023 15:42:35] "[35m[1mGET /get_identifiable HTTP/1.1[0m" 500 -
+2023-08-28 15:47:45 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-28 15:47:45 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-28 15:49:37 - INFO - 127.0.0.1 - - [28/Aug/2023 15:49:37] "GET /login HTTP/1.1" 200 -
+2023-08-28 15:49:37 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "role": "admin",
+    "pathS": "",
+    "roleS": {}
+  }
+}
+2023-08-28 15:49:37 - DEBUG - OPA result: {'result': True}
+2023-08-28 15:49:37 - ERROR - Exception on /add_identifiable [POST]
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\auth.py", line 133, in decorator
+    return f(current_user, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 129, in add_identifiable
+    generate_security_submodel_template(identifiable)
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 409, in generate_security_submodel_template
+    model.Property(
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\basyx\aas\model\submodel.py", line 187, in __init__
+    super().__init__(id_short, category, description, parent, semantic_id, qualifier, kind)
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\basyx\aas\model\submodel.py", line 141, in __init__
+    super().__init__(id_short, category, description, parent, semantic_id, qualifier, kind)
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\basyx\aas\model\submodel.py", line 43, in __init__
+    self.id_short = id_short
+    ^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\basyx\aas\model\base.py", line 449, in _set_id_short
+    raise ValueError("The id_short must contain only letters, digits and underscore")
+ValueError: The id_short must contain only letters, digits and underscore
+2023-08-28 15:49:38 - INFO - 127.0.0.1 - - [28/Aug/2023 15:49:38] "[35m[1mPOST /add_identifiable HTTP/1.1[0m" 500 -
+2023-08-28 17:05:02 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-28 17:05:02 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-28 17:05:24 - INFO - 127.0.0.1 - - [28/Aug/2023 17:05:24] "GET /login HTTP/1.1" 200 -
+2023-08-28 17:05:24 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "role": "admin",
+    "pathS": "",
+    "roleS": {}
+  }
+}
+2023-08-28 17:05:24 - DEBUG - OPA result: {'result': True}
+2023-08-28 17:05:24 - ERROR - Exception on /add_identifiable [POST]
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\auth.py", line 133, in decorator
+    return f(current_user, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 129, in add_identifiable
+    generate_security_submodel_template(identifiable)
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 422, in generate_security_submodel_template
+    model.Property(
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\basyx\aas\model\submodel.py", line 187, in __init__
+    super().__init__(id_short, category, description, parent, semantic_id, qualifier, kind)
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\basyx\aas\model\submodel.py", line 141, in __init__
+    super().__init__(id_short, category, description, parent, semantic_id, qualifier, kind)
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\basyx\aas\model\submodel.py", line 43, in __init__
+    self.id_short = id_short
+    ^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\basyx\aas\model\base.py", line 449, in _set_id_short
+    raise ValueError("The id_short must contain only letters, digits and underscore")
+ValueError: The id_short must contain only letters, digits and underscore
+2023-08-28 17:05:24 - INFO - 127.0.0.1 - - [28/Aug/2023 17:05:24] "[35m[1mPOST /add_identifiable HTTP/1.1[0m" 500 -
+2023-08-28 17:07:08 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-28 17:07:08 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-28 17:07:14 - INFO - 127.0.0.1 - - [28/Aug/2023 17:07:14] "GET /login HTTP/1.1" 200 -
+2023-08-28 17:07:14 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "role": "admin",
+    "pathS": "",
+    "roleS": {}
+  }
+}
+2023-08-28 17:07:14 - DEBUG - OPA result: {'result': True}
+2023-08-28 17:07:14 - ERROR - Exception on /add_identifiable [POST]
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\auth.py", line 133, in decorator
+    return f(current_user, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 129, in add_identifiable
+    generate_security_submodel_template(identifiable)
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 422, in generate_security_submodel_template
+    model.Property(
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\basyx\aas\model\submodel.py", line 187, in __init__
+    super().__init__(id_short, category, description, parent, semantic_id, qualifier, kind)
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\basyx\aas\model\submodel.py", line 141, in __init__
+    super().__init__(id_short, category, description, parent, semantic_id, qualifier, kind)
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\basyx\aas\model\submodel.py", line 43, in __init__
+    self.id_short = id_short
+    ^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\basyx\aas\model\base.py", line 449, in _set_id_short
+    raise ValueError("The id_short must contain only letters, digits and underscore")
+ValueError: The id_short must contain only letters, digits and underscore
+2023-08-28 17:07:14 - INFO - 127.0.0.1 - - [28/Aug/2023 17:07:14] "[35m[1mPOST /add_identifiable HTTP/1.1[0m" 500 -
+2023-08-28 17:08:29 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-28 17:08:29 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-28 17:08:34 - INFO - 127.0.0.1 - - [28/Aug/2023 17:08:34] "GET /login HTTP/1.1" 200 -
+2023-08-28 17:08:34 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "POST",
+    "path": [
+      "add_identifiable"
+    ],
+    "role": "admin",
+    "pathS": "",
+    "roleS": {}
+  }
+}
+2023-08-28 17:08:34 - DEBUG - OPA result: {'result': True}
+2023-08-28 17:08:34 - INFO - 127.0.0.1 - - [28/Aug/2023 17:08:34] "POST /add_identifiable HTTP/1.1" 200 -
+2023-08-28 17:08:34 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "GET",
+    "path": [
+      "get_identifiable"
+    ],
+    "role": "admin",
+    "pathS": "",
+    "roleS": {}
+  }
+}
+2023-08-28 17:08:34 - DEBUG - OPA result: {'result': False}
+2023-08-28 17:08:34 - ERROR - Unexpected error querying OPA.
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 217, in get_identifiable
+    check_authorization(APP, input,OPA_URL)
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\accessControl.py", line 102, in check_authorization
+    abort(401) # status code 401: unauthorized
+    ^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\helpers.py", line 277, in abort
+    current_app.aborter(code, *args, **kwargs)
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\werkzeug\exceptions.py", line 861, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.Unauthorized: 401 Unauthorized: The server could not verify that you are authorized to access the URL requested. You either supplied the wrong credentials (e.g. a bad password), or your browser doesn't understand how to supply the credentials required.
+2023-08-28 17:08:34 - INFO - 127.0.0.1 - - [28/Aug/2023 17:08:34] "[35m[1mGET /get_identifiable HTTP/1.1[0m" 500 -
+2023-08-29 09:40:28 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-29 09:40:28 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-29 09:40:58 - INFO - 127.0.0.1 - - [29/Aug/2023 09:40:58] "GET /login HTTP/1.1" 200 -
+2023-08-29 09:40:58 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "GET",
+    "path": [
+      "get_identifiable"
+    ],
+    "role": "admin",
+    "pathS": "",
+    "roleS": {}
+  }
+}
+2023-08-29 09:40:58 - DEBUG - OPA result: {'result': False}
+2023-08-29 09:40:58 - ERROR - Unexpected error querying OPA.
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 217, in get_identifiable
+    check_authorization(APP, input,OPA_URL)
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\accessControl.py", line 102, in check_authorization
+    abort(401) # status code 401: unauthorized
+    ^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\helpers.py", line 277, in abort
+    current_app.aborter(code, *args, **kwargs)
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\werkzeug\exceptions.py", line 861, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.Unauthorized: 401 Unauthorized: The server could not verify that you are authorized to access the URL requested. You either supplied the wrong credentials (e.g. a bad password), or your browser doesn't understand how to supply the credentials required.
+2023-08-29 09:40:58 - INFO - 127.0.0.1 - - [29/Aug/2023 09:40:58] "[35m[1mGET /get_identifiable HTTP/1.1[0m" 500 -
+2023-08-29 09:42:40 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-29 09:42:40 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-29 09:42:45 - INFO - 127.0.0.1 - - [29/Aug/2023 09:42:45] "GET /login HTTP/1.1" 200 -
+2023-08-29 09:42:45 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "GET",
+    "path": [
+      "get_identifiable"
+    ],
+    "role": "admin",
+    "pathS": "",
+    "roleS": {}
+  }
+}
+2023-08-29 09:42:45 - DEBUG - OPA result: {'result': False}
+2023-08-29 09:42:45 - ERROR - Unexpected error querying OPA.
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 217, in get_identifiable
+    check_authorization(APP, input,OPA_URL)
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\accessControl.py", line 102, in check_authorization
+    abort(401) # status code 401: unauthorized
+    ^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\helpers.py", line 277, in abort
+    current_app.aborter(code, *args, **kwargs)
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\werkzeug\exceptions.py", line 861, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.Unauthorized: 401 Unauthorized: The server could not verify that you are authorized to access the URL requested. You either supplied the wrong credentials (e.g. a bad password), or your browser doesn't understand how to supply the credentials required.
+2023-08-29 09:42:45 - INFO - 127.0.0.1 - - [29/Aug/2023 09:42:45] "[35m[1mGET /get_identifiable HTTP/1.1[0m" 500 -
+2023-08-29 10:04:52 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-29 10:04:52 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-29 10:04:59 - INFO - 127.0.0.1 - - [29/Aug/2023 10:04:59] "GET /login HTTP/1.1" 200 -
+2023-08-29 10:04:59 - ERROR - Exception on /get_identifiable [GET]
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\auth.py", line 133, in decorator
+    return f(current_user, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 213, in get_identifiable
+    access_rules = extract_accessRights_from_submodelSecurity(identifiable, request.path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 510, in extract_accessRights_from_submodelSecurity
+    print("Element:", element.value[0].key)
+                      ~~~~~~~~~~~~~^^^
+TypeError: 'Reference' object is not subscriptable
+2023-08-29 10:04:59 - INFO - 127.0.0.1 - - [29/Aug/2023 10:04:59] "[35m[1mGET /get_identifiable HTTP/1.1[0m" 500 -
+2023-08-29 10:13:42 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-29 10:13:42 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-29 10:13:48 - INFO - 127.0.0.1 - - [29/Aug/2023 10:13:48] "GET /login HTTP/1.1" 200 -
+2023-08-29 10:13:48 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "GET",
+    "path": [
+      "get_identifiable"
+    ],
+    "role": "admin",
+    "pathS": "",
+    "roleS": {}
+  }
+}
+2023-08-29 10:13:48 - DEBUG - OPA result: {'result': False}
+2023-08-29 10:13:48 - ERROR - Unexpected error querying OPA.
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 217, in get_identifiable
+    check_authorization(APP, input,OPA_URL)
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\accessControl.py", line 102, in check_authorization
+    abort(401) # status code 401: unauthorized
+    ^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\helpers.py", line 277, in abort
+    current_app.aborter(code, *args, **kwargs)
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\werkzeug\exceptions.py", line 861, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.Unauthorized: 401 Unauthorized: The server could not verify that you are authorized to access the URL requested. You either supplied the wrong credentials (e.g. a bad password), or your browser doesn't understand how to supply the credentials required.
+2023-08-29 10:13:48 - INFO - 127.0.0.1 - - [29/Aug/2023 10:13:48] "[35m[1mGET /get_identifiable HTTP/1.1[0m" 500 -
+2023-08-29 10:53:28 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-29 10:53:28 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-29 10:53:38 - INFO - 127.0.0.1 - - [29/Aug/2023 10:53:38] "GET /login HTTP/1.1" 200 -
+2023-08-29 10:53:38 - ERROR - Exception on /get_identifiable [GET]
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\auth.py", line 133, in decorator
+    return f(current_user, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 213, in get_identifiable
+    access_rules = extract_accessRights_from_submodelSecurity(identifiable, request.path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 512, in extract_accessRights_from_submodelSecurity
+    model.Key(
+TypeError: Key.__init__() missing 1 required positional argument: 'type_'
+2023-08-29 10:53:38 - INFO - 127.0.0.1 - - [29/Aug/2023 10:53:38] "[35m[1mGET /get_identifiable HTTP/1.1[0m" 500 -
+2023-08-29 10:54:55 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-29 10:54:55 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-29 10:55:00 - INFO - 127.0.0.1 - - [29/Aug/2023 10:55:00] "GET /login HTTP/1.1" 200 -
+2023-08-29 10:55:00 - ERROR - Exception on /get_identifiable [GET]
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\auth.py", line 133, in decorator
+    return f(current_user, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 213, in get_identifiable
+    access_rules = extract_accessRights_from_submodelSecurity(identifiable, request.path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 518, in extract_accessRights_from_submodelSecurity
+    model.Key(
+TypeError: Key.__init__() missing 1 required positional argument: 'type_'
+2023-08-29 10:55:00 - INFO - 127.0.0.1 - - [29/Aug/2023 10:55:00] "[35m[1mGET /get_identifiable HTTP/1.1[0m" 500 -
+2023-08-29 10:57:09 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-29 10:57:09 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-29 10:57:14 - INFO - 127.0.0.1 - - [29/Aug/2023 10:57:14] "GET /login HTTP/1.1" 200 -
+2023-08-29 10:57:14 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "GET",
+    "path": [
+      "get_identifiable"
+    ],
+    "role": "admin",
+    "pathS": "",
+    "roleS": {}
+  }
+}
+2023-08-29 10:57:14 - DEBUG - OPA result: {'result': False}
+2023-08-29 10:57:14 - ERROR - Unexpected error querying OPA.
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 217, in get_identifiable
+    check_authorization(APP, input,OPA_URL)
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\accessControl.py", line 102, in check_authorization
+    abort(401) # status code 401: unauthorized
+    ^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\helpers.py", line 277, in abort
+    current_app.aborter(code, *args, **kwargs)
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\werkzeug\exceptions.py", line 861, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.Unauthorized: 401 Unauthorized: The server could not verify that you are authorized to access the URL requested. You either supplied the wrong credentials (e.g. a bad password), or your browser doesn't understand how to supply the credentials required.
+2023-08-29 10:57:14 - INFO - 127.0.0.1 - - [29/Aug/2023 10:57:14] "[35m[1mGET /get_identifiable HTTP/1.1[0m" 500 -
+2023-08-29 10:58:25 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-29 10:58:25 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-29 10:58:29 - INFO - 127.0.0.1 - - [29/Aug/2023 10:58:29] "GET /login HTTP/1.1" 200 -
+2023-08-29 10:58:29 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "GET",
+    "path": [
+      "get_identifiable"
+    ],
+    "role": "admin",
+    "pathS": "",
+    "roleS": {}
+  }
+}
+2023-08-29 10:58:29 - DEBUG - OPA result: {'result': False}
+2023-08-29 10:58:29 - ERROR - Unexpected error querying OPA.
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 217, in get_identifiable
+    check_authorization(APP, input,OPA_URL)
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\accessControl.py", line 102, in check_authorization
+    abort(401) # status code 401: unauthorized
+    ^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\helpers.py", line 277, in abort
+    current_app.aborter(code, *args, **kwargs)
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\werkzeug\exceptions.py", line 861, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.Unauthorized: 401 Unauthorized: The server could not verify that you are authorized to access the URL requested. You either supplied the wrong credentials (e.g. a bad password), or your browser doesn't understand how to supply the credentials required.
+2023-08-29 10:58:29 - INFO - 127.0.0.1 - - [29/Aug/2023 10:58:29] "[35m[1mGET /get_identifiable HTTP/1.1[0m" 500 -
+2023-08-29 11:02:08 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-29 11:02:08 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-29 11:02:33 - INFO - 127.0.0.1 - - [29/Aug/2023 11:02:33] "GET /login HTTP/1.1" 200 -
+2023-08-29 11:02:33 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "GET",
+    "path": [
+      "get_identifiable"
+    ],
+    "role": "admin",
+    "pathS": "",
+    "roleS": {}
+  }
+}
+2023-08-29 11:02:33 - DEBUG - OPA result: {'result': False}
+2023-08-29 11:02:33 - ERROR - Unexpected error querying OPA.
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 217, in get_identifiable
+    check_authorization(APP, input,OPA_URL)
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\accessControl.py", line 102, in check_authorization
+    abort(401) # status code 401: unauthorized
+    ^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\helpers.py", line 277, in abort
+    current_app.aborter(code, *args, **kwargs)
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\werkzeug\exceptions.py", line 861, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.Unauthorized: 401 Unauthorized: The server could not verify that you are authorized to access the URL requested. You either supplied the wrong credentials (e.g. a bad password), or your browser doesn't understand how to supply the credentials required.
+2023-08-29 11:02:33 - INFO - 127.0.0.1 - - [29/Aug/2023 11:02:33] "[35m[1mGET /get_identifiable HTTP/1.1[0m" 500 -
+2023-08-29 11:03:42 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-29 11:03:42 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-29 11:03:46 - INFO - 127.0.0.1 - - [29/Aug/2023 11:03:46] "GET /login HTTP/1.1" 200 -
+2023-08-29 11:03:46 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "GET",
+    "path": [
+      "get_identifiable"
+    ],
+    "role": "admin",
+    "pathS": "",
+    "roleS": {}
+  }
+}
+2023-08-29 11:03:46 - DEBUG - OPA result: {'result': False}
+2023-08-29 11:03:46 - ERROR - Unexpected error querying OPA.
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 217, in get_identifiable
+    check_authorization(APP, input,OPA_URL)
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\accessControl.py", line 102, in check_authorization
+    abort(401) # status code 401: unauthorized
+    ^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\helpers.py", line 277, in abort
+    current_app.aborter(code, *args, **kwargs)
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\werkzeug\exceptions.py", line 861, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.Unauthorized: 401 Unauthorized: The server could not verify that you are authorized to access the URL requested. You either supplied the wrong credentials (e.g. a bad password), or your browser doesn't understand how to supply the credentials required.
+2023-08-29 11:03:46 - INFO - 127.0.0.1 - - [29/Aug/2023 11:03:46] "[35m[1mGET /get_identifiable HTTP/1.1[0m" 500 -
+2023-08-29 11:05:38 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-29 11:05:38 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-29 11:05:41 - INFO - 127.0.0.1 - - [29/Aug/2023 11:05:41] "GET /login HTTP/1.1" 200 -
+2023-08-29 11:05:41 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "GET",
+    "path": [
+      "get_identifiable"
+    ],
+    "role": "admin",
+    "pathS": "",
+    "roleS": {}
+  }
+}
+2023-08-29 11:05:41 - DEBUG - OPA result: {'result': False}
+2023-08-29 11:05:41 - ERROR - Unexpected error querying OPA.
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 217, in get_identifiable
+    check_authorization(APP, input,OPA_URL)
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\accessControl.py", line 102, in check_authorization
+    abort(401) # status code 401: unauthorized
+    ^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\helpers.py", line 277, in abort
+    current_app.aborter(code, *args, **kwargs)
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\werkzeug\exceptions.py", line 861, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.Unauthorized: 401 Unauthorized: The server could not verify that you are authorized to access the URL requested. You either supplied the wrong credentials (e.g. a bad password), or your browser doesn't understand how to supply the credentials required.
+2023-08-29 11:05:41 - INFO - 127.0.0.1 - - [29/Aug/2023 11:05:41] "[35m[1mGET /get_identifiable HTTP/1.1[0m" 500 -
+2023-08-29 11:07:52 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-29 11:07:52 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-29 11:07:59 - INFO - 127.0.0.1 - - [29/Aug/2023 11:07:59] "GET /login HTTP/1.1" 200 -
+2023-08-29 11:07:59 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "GET",
+    "path": [
+      "get_identifiable"
+    ],
+    "role": "admin",
+    "pathS": "",
+    "roleS": {}
+  }
+}
+2023-08-29 11:07:59 - DEBUG - OPA result: {'result': False}
+2023-08-29 11:07:59 - ERROR - Unexpected error querying OPA.
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 218, in get_identifiable
+    check_authorization(APP, input,OPA_URL)
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\accessControl.py", line 102, in check_authorization
+    abort(401) # status code 401: unauthorized
+    ^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\helpers.py", line 277, in abort
+    current_app.aborter(code, *args, **kwargs)
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\werkzeug\exceptions.py", line 861, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.Unauthorized: 401 Unauthorized: The server could not verify that you are authorized to access the URL requested. You either supplied the wrong credentials (e.g. a bad password), or your browser doesn't understand how to supply the credentials required.
+2023-08-29 11:07:59 - INFO - 127.0.0.1 - - [29/Aug/2023 11:07:59] "[35m[1mGET /get_identifiable HTTP/1.1[0m" 500 -
+2023-08-29 11:09:39 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-29 11:09:39 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-29 11:09:44 - INFO - 127.0.0.1 - - [29/Aug/2023 11:09:44] "GET /login HTTP/1.1" 200 -
+2023-08-29 11:09:44 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "GET",
+    "path": [
+      "get_identifiable"
+    ],
+    "role": "admin",
+    "pathS": "",
+    "roleS": {}
+  }
+}
+2023-08-29 11:09:44 - DEBUG - OPA result: {'result': False}
+2023-08-29 11:09:44 - ERROR - Unexpected error querying OPA.
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 218, in get_identifiable
+    check_authorization(APP, input,OPA_URL)
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\accessControl.py", line 102, in check_authorization
+    abort(401) # status code 401: unauthorized
+    ^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\helpers.py", line 277, in abort
+    current_app.aborter(code, *args, **kwargs)
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\werkzeug\exceptions.py", line 861, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.Unauthorized: 401 Unauthorized: The server could not verify that you are authorized to access the URL requested. You either supplied the wrong credentials (e.g. a bad password), or your browser doesn't understand how to supply the credentials required.
+2023-08-29 11:09:45 - INFO - 127.0.0.1 - - [29/Aug/2023 11:09:45] "[35m[1mGET /get_identifiable HTTP/1.1[0m" 500 -
+2023-08-29 11:12:25 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-29 11:12:25 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-29 11:12:30 - INFO - 127.0.0.1 - - [29/Aug/2023 11:12:30] "GET /login HTTP/1.1" 200 -
+2023-08-29 11:12:30 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "GET",
+    "path": [
+      "get_identifiable"
+    ],
+    "role": "admin",
+    "pathS": [
+      "get_identifiable"
+    ],
+    "roleS": {
+      "r1": "admin",
+      "r2": "rwthStudent",
+      "r3": "otherStudent"
+    }
+  }
+}
+2023-08-29 11:12:30 - DEBUG - OPA result: {'result': True}
+2023-08-29 11:12:30 - INFO - 127.0.0.1 - - [29/Aug/2023 11:12:30] "GET /get_identifiable HTTP/1.1" 200 -
+2023-08-29 12:10:45 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-29 12:10:45 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-29 12:10:50 - INFO - 127.0.0.1 - - [29/Aug/2023 12:10:50] "GET /login HTTP/1.1" 200 -
+2023-08-29 12:10:50 - ERROR - Exception on /query_semantic_id [GET]
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\auth.py", line 133, in decorator
+    return f(current_user, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 353, in query_semantic_id
+    access_rules = extract_accessRights_from_submodelSecurity(semantic_index_element.parent_identifiable.id, request.path.lstrip('/'))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 489, in extract_accessRights_from_submodelSecurity
+    for reference in aas.submodel]
+                     ^^^
+UnboundLocalError: cannot access local variable 'aas' where it is not associated with a value
+2023-08-29 12:10:50 - INFO - 127.0.0.1 - - [29/Aug/2023 12:10:50] "[35m[1mGET /query_semantic_id HTTP/1.1[0m" 500 -
+2023-08-29 13:17:32 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-29 13:17:32 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-29 13:17:37 - INFO - 127.0.0.1 - - [29/Aug/2023 13:17:37] "GET /login HTTP/1.1" 200 -
+2023-08-29 13:17:37 - ERROR - Exception on /query_semantic_id [GET]
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\auth.py", line 133, in decorator
+    return f(current_user, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 352, in query_semantic_id
+    access_rules = extract_accessRights_from_submodelSecurity(identifiable, request.path.lstrip('/'))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 488, in extract_accessRights_from_submodelSecurity
+    for reference in aas.submodel]
+                     ^^^^^^^^^^^^
+AttributeError: 'Submodel' object has no attribute 'submodel'
+2023-08-29 13:17:37 - INFO - 127.0.0.1 - - [29/Aug/2023 13:17:37] "[35m[1mGET /query_semantic_id HTTP/1.1[0m" 500 -
+2023-08-29 13:18:57 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-29 13:18:57 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-29 13:19:01 - INFO - 127.0.0.1 - - [29/Aug/2023 13:19:01] "GET /login HTTP/1.1" 200 -
+2023-08-29 13:19:01 - ERROR - Exception on /query_semantic_id [GET]
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\auth.py", line 133, in decorator
+    return f(current_user, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 352, in query_semantic_id
+    access_rules = extract_accessRights_from_submodelSecurity(identifiable, request.path.lstrip('/'))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 489, in extract_accessRights_from_submodelSecurity
+    for reference in aas.submodel]
+                     ^^^^^^^^^^^^
+AttributeError: 'Submodel' object has no attribute 'submodel'
+2023-08-29 13:19:01 - INFO - 127.0.0.1 - - [29/Aug/2023 13:19:01] "[35m[1mGET /query_semantic_id HTTP/1.1[0m" 500 -
+2023-08-29 13:31:41 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-29 13:31:41 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-29 13:32:05 - INFO - 127.0.0.1 - - [29/Aug/2023 13:32:05] "GET /login HTTP/1.1" 200 -
+2023-08-29 13:32:05 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "GET",
+    "path": [
+      "query_semantic_id"
+    ],
+    "role": "admin",
+    "pathS": "",
+    "roleS": {}
+  }
+}
+2023-08-29 13:32:05 - DEBUG - OPA result: {'result': False}
+2023-08-29 13:32:05 - ERROR - Unexpected error querying OPA.
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 355, in query_semantic_id
+    check_authorization(APP, input, OPA_URL)
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\accessControl.py", line 69, in check_authorization
+    abort(401) # status code 401: unauthorized
+    ^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\helpers.py", line 277, in abort
+    current_app.aborter(code, *args, **kwargs)
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\werkzeug\exceptions.py", line 861, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.Unauthorized: 401 Unauthorized: The server could not verify that you are authorized to access the URL requested. You either supplied the wrong credentials (e.g. a bad password), or your browser doesn't understand how to supply the credentials required.
+2023-08-29 13:32:05 - INFO - 127.0.0.1 - - [29/Aug/2023 13:32:05] "[35m[1mGET /query_semantic_id HTTP/1.1[0m" 500 -
+2023-08-29 14:00:17 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:2234
+2023-08-29 14:00:17 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-29 14:00:26 - INFO - 127.0.0.1 - - [29/Aug/2023 14:00:26] "GET /login HTTP/1.1" 200 -
+2023-08-29 14:00:26 - DEBUG - OPA query: http://localhost:8181/v1/data/policy/allow. Body: {
+  "input": {
+    "method": "GET",
+    "path": [
+      "query_semantic_id"
+    ],
+    "role": "admin",
+    "pathS": "",
+    "roleS": {}
+  }
+}
+2023-08-29 14:00:26 - DEBUG - OPA result: {'result': False}
+2023-08-29 14:00:26 - ERROR - Unexpected error querying OPA.
+Traceback (most recent call last):
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\routes.py", line 355, in query_semantic_id
+    check_authorization(APP, input, OPA_URL)
+  File "C:\Users\kmorg\github\aas_repository_server\aas_repository_server\accessControl.py", line 69, in check_authorization
+    abort(401) # status code 401: unauthorized
+    ^^^^^^^^^^
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\flask\helpers.py", line 277, in abort
+    current_app.aborter(code, *args, **kwargs)
+  File "C:\Users\kmorg\github\aas_repository_server\venv\Lib\site-packages\werkzeug\exceptions.py", line 861, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.Unauthorized: 401 Unauthorized: The server could not verify that you are authorized to access the URL requested. You either supplied the wrong credentials (e.g. a bad password), or your browser doesn't understand how to supply the credentials required.
+2023-08-29 14:00:26 - INFO - 127.0.0.1 - - [29/Aug/2023 14:00:26] "[35m[1mGET /query_semantic_id HTTP/1.1[0m" 500 -

@@ -5,7 +5,6 @@ import json
 import logging
 from typing import Optional, List, Dict
 
-
 import flask
 import jwt
 import werkzeug.security
@@ -13,12 +12,12 @@ import werkzeug.security
 
 from basyx.aas import model
 from basyx.aas.adapter.json import json_serialization, json_deserialization
-from basyx.aas.util import traversal
+
 
 from aas_repository_server\
     import auth, storage
-from aas_repository_server.access_control import check_authorization, create_OPA_input, create_OPA_input_with_sub_secrurity
-from flask import  stream_with_context, abort, Response, request
+from aas_repository_server.accessControl import check_authorization, create_OPA_input
+from flask import stream_with_context, abort, Response, request
 
 
 # todo: Config anpassen, parsing anpassen , storage anpassen
@@ -113,18 +112,13 @@ def add_identifiable(current_user: str):
         - 409, if the Identifiable already exists in the OBJECT_STORE
     """
     data = flask.request.get_data(as_text=True)
-    access_rights = {
-        "get_identifiable": ["admin", "rwthStudent", "otherStudent"]
-    }
     try:
         identifiable: Optional[model.Identifiable] = json.loads(data, cls=json_deserialization.AASFromJsonDecoder)
     except json.decoder.JSONDecodeError:
         return flask.make_response("Could not parse request, not valid JSON", 400)
     # Todo: Check here if the given user has access rights to the Identifiable
     try:
-        #input = create_OPA_input(request, current_user)
-        input = create_OPA_input_with_sub_secrurity(request, "admin", access_rights)
-        #print(input)
+        input = create_OPA_input(request, current_user)
         check_authorization(APP, input,OPA_URL)
     except Exception as e:
         APP.logger.exception("Unexpected error querying OPA.")
@@ -161,8 +155,9 @@ def modify_identifiable(current_user: str):
     identifier: Optional[model.Identifier] = identifiable_new.identification
     identifiable_stored: Optional[model.Identifiable] = OBJECT_STORE.get(identifier)
     # Todo: Check here if the given user has access rights to the Identifiable
+    access_rules = extract_accessRights_from_submodelSecurity(identifiable_stored, request.path.lstrip('/'))
     try:
-        input  = create_OPA_input(request, current_user, identifier.id)
+        input = create_OPA_input(request, current_user, access_rules)
         check_authorization(APP, input, OPA_URL)
     except Exception as e:
         APP.logger.exception("Unexpected error querying OPA.")
@@ -196,9 +191,6 @@ def get_identifiable(current_user: str):
         - 422, if a valid AAS object was given, but not an Identifiable
     """
     data = flask.request.get_data(as_text=True)
-    access_rights = {
-        "get_identifiable": ["admin", "rwthStudent", "otherStudent"]
-    }
     # Load the JSON from the request
     try:
         identifier_dict: Dict[str, str] = json.loads(data)
@@ -215,10 +207,9 @@ def get_identifiable(current_user: str):
     # Try to resolve the Identifier in the object store
     identifiable: Optional[model.Identifiable] = OBJECT_STORE.get(identifier)
     # Todo: Check here if the given user has access rights to the Identifiable
-
+    access_rules = extract_accessRights_from_submodelSecurity(identifiable, request.path.lstrip('/'))
     try:
-        #input  = create_OPA_input(request, current_user, identifier.id) # type(identifiable)
-        input= create_OPA_input_with_sub_secrurity(request,"admin",access_rights)
+        input= create_OPA_input(request, current_user, access_rules)
         check_authorization(APP, input,OPA_URL)
     except Exception as e:
         APP.logger.exception("Unexpected error querying OPA.")
@@ -357,8 +348,10 @@ def query_semantic_id(current_user: str):
     jsonable_result: List = []
     for semantic_index_element in result:
         print(semantic_index_element.semantically_identified_referable)
+        identifiable: Optional[model.Identifiable] = OBJECT_STORE.get(semantic_index_element.parent_identifiable)
+        access_rules = extract_accessRights_from_submodelSecurity(identifiable, request.path.lstrip('/'))
         try:
-            input = create_OPA_input(request, current_user,  semantic_index_element.parent_identifiable.id)
+            input = create_OPA_input(request, current_user, access_rules)
             check_authorization(APP, input, OPA_URL)
         except Exception as e:
             APP.logger.exception("Unexpected error querying OPA.")
@@ -383,7 +376,7 @@ def generate_security_submodel_template(aas: model.AssetAdministrationShell):
     """
       Generate a security submodel template and add it to the given Asset Administration Shell (AAS).
 
-      This function creates a a simplified version of security submodel template, which defines default access rights and security rules for the
+      This function creates a simplified version of security submodel template, which defines default access rights and security rules for the contain of
       corresponding AAS. It adds the generated security submodel to the given AAS.
 
       Parameters:
@@ -392,31 +385,105 @@ def generate_security_submodel_template(aas: model.AssetAdministrationShell):
 
       Returns:
           None
-      """
-    submodel_security = model.Submodel(
-        identification=model.Identifier('https://acplt.org/Security_Submodel', model.IdentifierType.IRI),
+"""
+    # Create the Security Submodel
+    securitySubmodel=model.Submodel(
+        identification=model.Identifier(
+            id_="https://acplt.org/Security_Submodel",
+            id_type=model.IdentifierType.IRI
+        ),
         id_short="SecuritySubmodel",
+        semantic_id=model.Reference(tuple([
+            model.Key(
+                type_=model.KeyElements.GLOBAL_REFERENCE,
+                local=False,
+                value="http://acplt.org/Security_SubmodelSemanticID",
+                id_type=model.KeyType.IRI
+            )
+        ])),
+        # For simplicity, I assumed a simplified structure of the security submodel
         submodel_element={
-            model.Property(
-                id_short='ressource',
-                value_type=model.datatypes.String,
-                value=aas.identification.id
-            ),
-            model.Property(
-                id_short='get_identifiable',
-                value_type=model.datatypes.String,
-                value=str(['admin', 'rwthStudent', 'otherStudent']),
-            ),
-            model.Property(
-                id_short='modify_identifiable',
-                value_type=model.datatypes.String,
-                value=str(['admin']),
-            ),
+            model.SubmodelElementCollectionOrdered(
+                id_short= "Set_of_security_Rules_for_AAS",
+                value=[model.ReferenceElement(
+                    id_short='Resource_Reference',
+                    value=model.Reference(
+                        (model.Key(
+                            type_=model.KeyElements.GLOBAL_REFERENCE,
+                            local=False,
+                            value=aas.identification.id,  # refer to the AAS
+                            id_type=model.KeyType.IRI
+                        ),)
+                    ),
+                ),
+                    model.Property(
+                        id_short="rules",
+                        value_type=model.datatypes.String,
+                        value=str(
+                            ["get_identifiable", ['admin', 'rwthStudent', 'otherStudent'], "modify_identifiable",
+                             ['admin'], "query_semantic_id", ['admin', 'rwthStudent', 'otherStudent']]),
+                    ),]
+               ),
         }
     )
+    submodels = [reference.resolve(OBJECT_STORE)
+                 for reference in aas.submodel]
+    for submodel in submodels:
+        if submodel.semantic_id != model.Reference(tuple([
+            model.Key(
+                type_=model.KeyElements.GLOBAL_REFERENCE,
+                local=False,
+                value="http://acplt.org/Security_SubmodelSemanticID",
+                id_type=model.KeyType.IRI
+            )])):
+            AccessRules_otherSubs = model.SubmodelElementCollectionOrdered(
+                # Access rules for submodels excluding the security submodel.
+                id_short="Reference to '{}'".format(submodel.id_short),
+                value=[model.ReferenceElement(
+                    id_short='Resource_Reference',
+                    value=model.Reference(
+                        (model.Key(
+                            type_=model.KeyElements.GLOBAL_REFERENCE,
+                            local=False,
+                            value=securitySubmodel.identification.id,  # refer to the AAS
+                            id_type=model.KeyType.IRI
+                        ),)
+                    ),
+                ),
+                    model.Property(
+                        id_short="AccessRules for '{}'".format(submodel.id_short),
+                        value_type=model.datatypes.String,
+                        value=str(["get_identifiable", ['admin', 'rwthStudent', 'otherStudent'], "modify_identifiable", ['admin', 'rwthStudent'],
+                                  "query_semantic_id", ['admin', 'rwthStudent', 'otherStudent']]),
+                    ), ]
+            )
+            securitySubmodel.submodel_element.add(AccessRules_otherSubs)
+
+
+    AccessRules_Subsec=model.SubmodelElementCollectionOrdered( #Access Rules for Security Submodel
+                id_short="Reference_to_Submodel_Security",
+                value=[model.ReferenceElement(
+                    id_short='Resource_Reference',
+                    value=model.Reference(
+                        (model.Key(
+                            type_=model.KeyElements.GLOBAL_REFERENCE,
+                            local=False,
+                            value=securitySubmodel.identification.id,  # refer to the AAS
+                            id_type=model.KeyType.IRI
+                        ),)
+                    ),
+                ),
+                    model.Property(
+                        id_short='AccessRules_SubSec',
+                        value_type=model.datatypes.String,
+                        value=str(["get_identifiable", ['admin'], "modify_identifiable", ['admin'], "query_semantic_id", ['admin']]),
+                    ), ]
+            )
+    securitySubmodel.submodel_element.add(AccessRules_Subsec) # Add the security rules for submodels security in Submodel security itself
     #add the security submodel to the given aas
-    OBJECT_STORE.add(submodel_security)
-    aas.submodel.add(model.AASReference.from_referable(submodel_security))
+    OBJECT_STORE.add(securitySubmodel)
+    aas.submodel.add(model.AASReference.from_referable(securitySubmodel))
+
 
 
 def extract_accessRights_from_submodelSecurity(identifiable: model.Identifiable, endpoint: str):
@@ -436,33 +503,59 @@ def extract_accessRights_from_submodelSecurity(identifiable: model.Identifiable,
     Example Output: {'get_identifiable': ['admin', 'rwthStudent', 'otherStudent']}
 
     Note:
-        - Not yet functional
         - This function assumes a specific structure of the security submodel for access rights extraction.
+        - The Identifiable should be either a Submodel or an AAS
     """
-    submodel_security: model.Submodel
-    access_rights = {}  # Dictionary to store submodel security roles
+    submodelSecurity: model.Submodel
+    access_rights = {}  # Dictionary to store security rules from submodel security
+    aas: model.AssetAdministrationShell
 
-    if not isinstance(identifiable, model.AssetAdministrationShell):  # if the identifiable is not an AAS, retrieve the corresponding AAS
-         aas_reference = identifiable.parent
-         identifiable= aas_reference.get_referable(aas_reference)
-         identifiable = model.AASReference.from_referable(identifiable)  # identifiable= aas_reference.resolve(aas_reference)
+    if isinstance(identifiable, model.Submodel): # if the identifiable is a submodel, retrieve the corresponding AAS
+        aas=OBJECT_STORE.find_aas_containing_submodel(identifiable)
+    elif isinstance(identifiable, model.AssetAdministrationShell):
+        aas=identifiable
 
-
-    for submodel in identifiable.submodel:
-        if submodel.id_short == "SecuritySubmodel":
-            submodel_security = submodel
-            break    # Exit the loop after finding the security submodel
+    # Let's create a list of all submodels, to which the AAS has references, by resolving each of the submodel references:
+    submodels = [reference.resolve(OBJECT_STORE)
+                 for reference in aas.submodel]
+    # retrieve the submodel security by its semantic ID
+    for submodel in submodels:
+        if submodel.semantic_id == model.Reference(tuple([
+    model.Key(
+        type_=model.KeyElements.GLOBAL_REFERENCE,
+        local=False,
+        value="http://acplt.org/Security_SubmodelSemanticID",
+        id_type=model.KeyType.IRI
+    )])):
+            submodelSecurity = submodel
+            break  # Exit the loop after finding the security submodel
     else:
-        raise ValueError("No security submodel could be associated with the provided Identifiable")
+        raise ValueError("No security submodel could be associated with the provided ressource")
 
-    for submodel_element in traversal.walk_submodel(submodel_security):
-        if submodel_element.id_short == "ressource":
-            ressource_identifier = submodel_element
-        elif submodel_element.id_short == "read":
-            access_rights['read'] = submodel_element.value #How to access the property's value within the Submodel Element?
-        elif submodel_element.id_short == "modify":
-            access_rights['modify'] = submodel_element.value
-
+    for submodel_element in submodelSecurity.submodel_element :
+        if isinstance(submodel_element, model.SubmodelElementCollectionOrdered):
+            for element in submodel_element.value:
+                if isinstance(element, model.ReferenceElement):
+                    if element.value== model.Reference(tuple([
+                                        model.Key(
+                                        type_=model.KeyElements.GLOBAL_REFERENCE,
+                                        local=False,
+                                        id_type=model.KeyType.IRI,
+                                        value=identifiable.identification.id)])):  # Check if the ReferenceElement, refer to the identifiable
+                        for prop in submodel_element.value:
+                            if isinstance(prop, model.Property):
+                                value_list = eval(prop.value)
+                                # Iterate through the list to extract access rules
+                                i = 0
+                                while i < len(value_list):
+                                    operation = value_list[i]
+                                    roles = value_list[i + 1]
+                                    if operation==endpoint:
+                                        access_rights[operation] = roles
+                                        break
+                                    i += 2
+                    break
+    print("rules:",access_rights)
     return access_rights
 
 #configure the logging

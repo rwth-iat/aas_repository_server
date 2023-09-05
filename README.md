@@ -36,13 +36,14 @@ Access control is achieved through a combination of user authentication(not yet 
 2. **Authorization Rules Setup**:
    - Define the roles and corresponding permissions (actions) they are allowed to perform.
    - Example roles: admin, rwthStudent, otherStudent.
+   - Update your roles in access_control.py
 
 3. **Policy Definition**:
-   - Define authorization policies using the Rego policy language supported by OPA.
-   - You can start with the example policy (policy.rego file) provided in this repository and adjust it according to your needs 
+   - Incorporate your defined rules into your security  Submodel template.
+   - If needed adjust the policy.rego file provided in this repository 
    - The policy file should be stored in the same folder as the OPA executable
    - See https://www.openpolicyagent.org/docs/latest/#rego for more about the rego language
-   - You can also experiment with rego and test policy code online: https://play.openpolicyagent.org/
+   - You can experiment with rego and test policy code online: https://play.openpolicyagent.org/
    
 4. **Policy Evaluation with OPA**:
    - OPA is already configure to listen on http://localhost:8181/v1/data/policy/allow, you can change this in the config.ini.default file
@@ -53,17 +54,11 @@ Access control is achieved through a combination of user authentication(not yet 
    Replace "policy.rego" with the actual name of your policy file.
    - Start your AAS Repository Server as you normally would.
 
-5. **Access Control in Routes**:
-   - In each route of the AAS repository server, apply access control checks before processing requests.
-   - Retrieve user roles from the authentication token.
-   - Send the user roles and other relevant information to OPA for policy evaluation.
-   - Implement error handling for denied requests.
-
 
 ## Security Submodel
 
 - A Security Submodel is automatically added to each new AAS.
-- The Security Submodel contains access control rules for the AAS, its submodels, and specific actions.
+- The Security Submodel contains access control rules for the AAS, its submodels.
 
 ## Dependencies
 
