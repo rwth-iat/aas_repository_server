@@ -1,5 +1,10 @@
 # AAS Repository Server
 
+> [!warning]
+> This legacy implementation does not follow any specified API!
+> 
+> For the server that implements the specified API of the AAS, see [docker image](https://github.com/rwth-iat/basyx-python-sdk-http-server-docker) of the [BaSyx-Python-SDK](https://github.com/eclipse-basyx/basyx-python-sdk). 
+
 An Implementation of an AssetAdministrationShell Repository server, 
 using the [Eclipse BaSyx Python SDK](https://github.com/eclipse-basyx/basyx-python-sdk).
 
